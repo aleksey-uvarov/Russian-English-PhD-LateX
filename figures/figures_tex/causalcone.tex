@@ -1,0 +1,112 @@
+\documentclass[border={10pt 6pt}]{standalone}
+\usepackage{tikz}
+\usepackage{qcircuit}
+\usepackage{physics}
+
+
+\begin{document}
+\begin{pgfpicture}{0em}{0em}{0.65em}{0em}
+    \color{green!80!yellow!45!white}
+    %%%%% reminder on \pgfrect syntax: {(x, y)}{(dx, dy)}
+    %%%%% x increases to the right, y increases upwards
+    \pgfrect[fill]{\pgfpoint{2.3em}{-11.7em}}{\pgfpoint{2.25em}{3.12em}}
+    \pgfrect[fill]{\pgfpoint{2.3em}{-7.18em}}{\pgfpoint{2.25em}{3.12em}}
+    \pgfrect[fill]{\pgfpoint{2.3em}{-2.69em}}{\pgfpoint{2.25em}{3.12em}}
+    
+    
+    \pgfrect[fill]{\pgfpoint{5.55em}{-9.45em}}{\pgfpoint{2.2em}{3.12em}}
+    \pgfrect[fill]{\pgfpoint{5.55em}{-4.94em}}{\pgfpoint{2.2em}{3.12em}}
+    
+    \pgfrect[fill]{\pgfpoint{8.75em}{-7.18em}}{\pgfpoint{2.25em}{3.12em}}
+    
+    \pgfrect[fill]{\pgfpoint{16.53em}{-7.18em}}{\pgfpoint{2.25em}{3.12em}}
+    
+    \pgfrect[fill]{\pgfpoint{19.78em}{-9.45em}}{\pgfpoint{2.2em}{3.125em}}
+    \pgfrect[fill]{\pgfpoint{19.78em}{-4.94em}}{\pgfpoint{2.2em}{3.125em}}
+    
+    \pgfrect[fill]{\pgfpoint{22.97em}{-11.7em}}{\pgfpoint{2.25em}{3.12em}}
+     \pgfrect[fill]{\pgfpoint{22.97em}{-7.18em}}{\pgfpoint{2.25em}{3.12em}}
+    \pgfrect[fill]{\pgfpoint{22.97em}{-2.69em}}{\pgfpoint{2.25em}{3.12em}}
+    \end{pgfpicture}
+    \mbox{
+            \Qcircuit @C=1.0em @R=1.0em {
+            \lstick{\bra{0}} 
+            & \multigate{1}{G_1^\dagger} 
+            & \qw 
+            & \multigate{1}{G_6^\dagger}    
+            & \qw 
+            & \gate{1}
+            & \qw
+            & \multigate{1}{G_6} 
+            & \qw 
+            & \multigate{1}{G_1} 
+            & \qw
+            & {\ket{0}}
+            \\
+            \lstick{\bra{0}} 
+            & \ghost{G_1^\dagger} 
+            & \multigate{1}{G_4^\dagger} 
+            & \ghost{G_6^\dagger} 
+            & \qw  
+            & \gate{1}
+            & \qw 
+            & \ghost{G_6} 
+            & \multigate{1}{G_4} 
+            & \ghost{G_1} 
+            & \qw
+            & {\ket{0}}
+            \\
+            \lstick{\bra{0}} 
+            & \multigate{1}{G_2^\dagger}  
+            & \ghost{G_4^\dagger}
+            & \multigate{1}{G_7^\dagger} 
+            & \qw  
+            & \gate{1}
+            & \qw 
+            & \multigate{1}{G_7} 
+            & \ghost{G_4}
+            & \multigate{1}{G_2}  
+            & \qw
+            & {\ket{0}}
+            \\
+            \lstick{\bra{0}} 
+            & \ghost{G_2^\dagger} 
+            & \multigate{1}{G_5^\dagger} 
+            & \ghost{G_7^\dagger}
+            & \qw  
+            & \gate{X}
+            & \qw  
+            & \ghost{G_7}
+            & \multigate{1}{G_5} 
+            & \ghost{G_2} 
+            & \qw
+            & {\ket{0}}            
+            \\
+            \lstick{\bra{0}} 
+            & \multigate{1}{G_3^\dagger}
+            & \ghost{G_5^\dagger} 
+            & \multigate{1}{G_8^\dagger}
+            & \qw  
+            & \gate{1}
+            & \qw  
+            & \multigate{1}{G_8}
+            & \ghost{G_5} 
+            & \multigate{1}{G_3}
+            & \qw
+            & {\ket{0}}            
+            \\
+            \lstick{\bra{0}} 
+            & \ghost{G_3^\dagger} 
+            & \qw  
+            & \ghost{G_8^\dagger}
+            & \qw
+            & \gate{1}
+            & \qw
+            & \ghost{G_8}
+            & \qw  
+            & \ghost{G_3} 
+            & \qw
+            & {\ket{0}}            
+            \\
+              }}
+\end{document}

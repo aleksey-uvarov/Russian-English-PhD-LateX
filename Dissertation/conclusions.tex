@@ -1,0 +1,60 @@
+\addcontentsline{toc}{chapter}{Conclusions}
+\chapter*{Conclusions}
+
+
+In the age of NISQ computers, variational quantum algorithms are one of the central research topics. In this thesis, we addressed this topic.
+
+In chapter \ref{chap:quantum_basics}, we introduced the basic notions of quantum computation. In chapter \ref{chap:vqas}, we reviewed the state of the art in variational quantum algorithms. Our contribution starts from chapter \ref{chap:vqe_numerics}, where we investigated the ability of VQE to find the ground state of different physical models. We studied how quality of the solution depends on the depth of the circuit and on the parameters of the model. We also touched the subject of barren plateaus, although a more detailed investigation is postponed to chapter \ref{chap:plateaus}.
+In chapter \ref{chap:qml}, we presented our work on machine learning with variational quantum algorithms. The goal was to train a variational circuit on quantum states obtained from VQE. In chapter \ref{chap:plateaus}, we investigated the emergence of barren plateaus in optimization landscapes. Our main tools were the approximation of individual circuit blocks with unitary 2-designs and investigation of the phenomenon in the Heisenberg picture.
+Finally, in chapter \ref{chap:ghz}, we proposed an algorithm to estimate the fidelity of the GHZ state prepared in a quantum register. This algorithm works for any Clifford state and, although it tends to give loose bounds, it is applicable to any Clifford state.
+
+The results presented in different chapters give an interesting insight when put together. On the one hand, VQE for physical problems shows exponential convergence with the number of layers. This observation matches independent observations that are made in \cite{cade_strategies_2019} and \cite{bravo-prieto_scaling_2020}, although in the latter two substantially different regimes were found, with the tipping point for a critical problem being approximately linear in the number of qubits. On the other hand, the barren plateaus become a significant issue after logarithmically many layers. Combining the two observations, we can see that non-critical problems should be relatively easy for VQE, while for critical problems one will have to employ a more clever strategy of optimization than naive VQE.
+
+The main results of the work are as follows:
+\begin{enumerate}
+    \item We developed a numerical implementation of the VQE algorithm. Using this implementation, we investigated the behavior of the solutions for the transverse-field Ising model, anisotropic Heisenberg model, and a spinless variant of the Hubbard model with next-nearest-neighbor interactions. 
+    \item The states near the phase transition point are the hardest to approximate with a variational circuit. We found a hysteresis effect in the adiabatic-assisted VQE, meaning that going between two easy Hamiltonians through a difficult region yields two different results depending on the direction. In all models, the scaling of the error with circuit depth was close to exponential, agreeing with existing literature.
+    \item The barren plateaus effect for short-depth circuits sets on at a different pace depending on the choice of the fermion-to-qubit encoding. In particular, the derivatives vanish essentially immediately for the Jordan-Wigner transform and more gradually for the Bravyi-Kitaev transform.
+    \item Variational quantum circuits can be optimized (trained) to distinguish the phases of quantum models. This works both for a simple Ising model, where the phase transition can be detected with a simple observable, and for the Heisenberg model, where the transition is harder to detect.
+    \item We derived a lower bound on the variance of cost function derivatives in variational quantum circuits. The bound mainly depends on two things: the size of the causal cones of the operators in the cost function Hamiltonian, and the position of the gate in the circuit.
+    \item We proposed a technique for bounding the GHZ state fidelity. Unlike state-of-the-art methods, this technique does not require the ability to fine-tune the angles of the rotation gates, nor does it rely on any assumptions about the noise.
+\end{enumerate}
+
+\addcontentsline{toc}{chapter}{List of symbols and abbreviations}
+\chapter*{List of symbols and abbreviations}
+
+\begin{tabularx}{\textwidth}{lX}
+    $\operatorname{Ad}_M$ & The operator of conjugation by an invertible matrix $M$: $X \mapsto M X M^{-1}$. \\
+    $\mathbbm{R}$ & The field of real numbers \\
+    $\mathbbm{C}$ & The field of complex numbers \\
+    $\rmi$ & Imaginary unit \\
+    $\operatorname{dim} V$ & Dimension of a vector space $V$ \\
+    $\operatorname{Herm}(d)$ & The space of Hermitian operators on $\mathbbm{C}^d$ \\
+    $||A||_p$ & Operator $p$-norm of a linear operator \\
+    $\operatorname{End}(V)$ & The space of linear operators on a vector space $V$ \\
+    $U(d)$ & The group of $d \times d$ unitary matrices \\
+    % $\mc{H}$ & Hilbert space \\
+    $\ket{\psi}$ & A pure quantum state \\
+    % $\rho$ & A mixed quantum state \\
+    % $[n]$ & The set of integers from $1$ to $n$ \\
+    $A^*$ & Complex conjugate of a matrix \\
+    $A^\dagger$ & Conjugate transpose (Hermitian conjugate) of a matrix \\
+    $\id$ & Identity matrix \\
+    $\operatorname{card} H$ & Number of nonzero terms in the Pauli decomposition of a matrix $H$ \\
+    $\operatorname{loc} H$ & Maximum algebraic locality of Pauli strings in the Pauli decomposition of a matrix $H$ \\
+    $X_i, Y_i, Z_i$ & Pauli matrices acting on qubit number $i$ \\
+    AAVQE & Adiabatically-assisted variational quantum eigensolver \\
+    BFGS & Broyden-Fletcher-Goldfarb-Shanno algorithm \\
+    NISQ & Noisy intermediate-size quantum (computing)\\
+    VQA & Variational quantum algorithms \\
+    VQE & Variational quantum eigensolver \\
+    SGD & Stochastic gradient descent \\
+    TFI & Transverse field Ising (model) \\
+\end{tabularx}
+
+\newpage
+% \addcontentsline{toc}{chapter}{List of figures}
+\listoffigures
+
+% \addcontentsline{toc}{chapter}{List of tables}
+\listoftables

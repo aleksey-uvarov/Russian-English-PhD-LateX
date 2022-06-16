@@ -1,0 +1,34 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\tikzset{blank/.style={rectangle,inner sep=0pt,draw=none,fill=none,minimum
+    size=0pt} }
+
+\newcommand{\legw}{1}
+\newcommand{\gapw}{2}
+\newcommand{\gaph}{1}
+\newcommand{\barh}{0.6}
+\newcommand{\wireh}{0.2}
+\newcommand{\wiregap}{0.5}
+\newcommand{\wirel}{0.3}
+
+\begin{document}
+    \begin{tikzpicture}[thick,scale=0.5]
+        
+        \node[blank] at (0, 0) {};
+        \node[blank] at (0, 1) {};
+        
+        \draw
+        (0, 0) -- (1, 1)
+        (0, 1) -- (1, 0);        
+        % \draw 
+        % (0, 0) 
+        % -- (0, \gaph + \barh) 
+        % -- (\gapw + \legw + \legw,\gaph + \barh)
+        % -- (\gapw + \legw + \legw,0)
+        % -- (\gapw + \legw,0)
+        % -- (\gapw + \legw, \gaph)
+        % -- (\legw, \gaph)
+        % -- (\legw,0)
+        % -- (0, 0);
+    \end{tikzpicture}
+\end{document}

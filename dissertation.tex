@@ -70,15 +70,20 @@
 \include{Dissertation/contents}        % Оглавление
 \ifnumequal{\value{contnumfig}}{1}{}{\counterwithout{figure}{chapter}}
 \ifnumequal{\value{contnumtab}}{1}{}{\counterwithout{table}{chapter}}
-\include{Dissertation/introduction}    % Введение
+\include{Dissertation/intro_and_basics}    % Введение
 \ifnumequal{\value{contnumfig}}{1}{\counterwithout{figure}{chapter}
 }{\counterwithin{figure}{chapter}}
 \ifnumequal{\value{contnumtab}}{1}{\counterwithout{table}{chapter}
 }{\counterwithin{table}{chapter}}
-\include{Dissertation/part1}           % Глава 1
-\include{Dissertation/part2}           % Глава 2
-\include{Dissertation/part3}           % Глава 3
-\include{Dissertation/conclusion}      % Заключение
+\include{Dissertation/vqas_review}
+\include{Dissertation/numerical_experiments}
+\include{Dissertation/qml}
+\include{Dissertation/plateaus}
+\include{Dissertation/telescope}
+% \include{Dissertation/part1}           % Глава 1
+% \include{Dissertation/part2}           % Глава 2
+% \include{Dissertation/part3}           % Глава 3
+\include{Dissertation/conclusions}      % Заключение
 \include{Dissertation/acronyms}        % Список сокращений и условных обозначений
 \include{Dissertation/dictionary}      % Словарь терминов
 \include{Dissertation/references}      % Список литературы
@@ -96,7 +101,7 @@
     \renewcommand\thechapter{\Asbuk{chapter}} % Чтобы приложения русскими буквами нумеровались
 }{}
 
-\include{Dissertation/appendix}        % Приложения
+% \include{Dissertation/appendix}        % Приложения
 
 \setcounter{totalappendix}{\value{chapter}} % Подсчёт количества приложений
 
