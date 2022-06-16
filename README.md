@@ -10,6 +10,8 @@ Most changes are done by putting the Russifying commands into if-blocks.
 * Subfigure numbering
 * Upright greek letters and math symbols written as in the Russian tradition
 * The word "Стр." in the table of contents
+* Two titlepages, as per GOST R 7.0.11-2011.
+* Bibliography: title of the bibliography, todo: gost formatting
 
 
 ## Особенности
