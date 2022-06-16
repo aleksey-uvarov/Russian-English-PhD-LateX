@@ -6,7 +6,7 @@
 \makeatletter
 \@ifundefined{c@draft}{
   \newcounter{draft}
-  \setcounter{draft}{0}  % 0 --- чистовик (максимальное соблюдение ГОСТ)
+  \setcounter{draft}{1}  % 0 --- чистовик (максимальное соблюдение ГОСТ)
                          % 1 --- черновик (отклонения от ГОСТ, но быстрая
                          %       сборка итоговых PDF)
 }{}
@@ -18,6 +18,16 @@
   \newcounter{showmarkup}
   \setcounter{showmarkup}{0}  % 0 --- скрыть пометки
                               % 1 --- показывать пометки
+}{}
+\makeatother
+
+%%% Диссертация на английском %%%
+\makeatletter
+\@ifundefined{c@englishthesis}{
+  \newcounter{englishthesis}
+  \setcounter{englishthesis}{1}  % 0 --- диссертация на русском
+                                 % 1 --- диссертация на английском; влияет 
+                                 %       на подписи к рисункам и прочее
 }{}
 \makeatother
 

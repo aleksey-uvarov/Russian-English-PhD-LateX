@@ -1,9 +1,16 @@
 %%% Кодировки и шрифты %%%
 \ifxetexorluatex
-    % Язык по-умолчанию русский с поддержкой приятных команд пакета babel
-    \setmainlanguage[babelshorthands=true]{russian}
-    % Дополнительный язык = английский (в американской вариации по-умолчанию)
-    \setotherlanguage{english}
+    \ifnumequal{\value{englishthesis}}{0}{
+        % Язык по-умолчанию русский с поддержкой приятных команд пакета babel
+        \setmainlanguage[babelshorthands=true]{russian}
+        % Дополнительный язык = английский (в американской вариации по-умолчанию)
+        \setotherlanguage{english}
+    }{
+        % I'm not sure if this actually does anything
+        \setmainlanguage[babelshorthands=true]{english}
+        \setotherlanguage{russian}
+    }
+
 
     % Проверка существования шрифтов. Недоступна в pdflatex
     \ifnumequal{\value{fontfamily}}{1}{

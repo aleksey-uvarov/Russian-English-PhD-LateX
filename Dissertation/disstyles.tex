@@ -86,17 +86,32 @@
 %%% http://tex.stackexchange.com/a/306950
 \newif\ifendTOC
 
-\newcommand*{\tocheader}{
-\ifnumequal{\value{pgnum}}{1}{%
-    \ifendTOC\else\hbox to \linewidth%
-      {\noindent{}~\hfill{Стр.}}\par%
-      \ifnumless{\value{page}}{3}{}{%
-        \vspace{0.5\onelineskip}
-      }
-      \afterpage{\tocheader}
-    \fi%
-}{}%
-}%
+\ifnumequal{\value{englishthesis}}{0}{
+    \newcommand*{\tocheader}{
+        \ifnumequal{\value{pgnum}}{1}{%
+            \ifendTOC\else\hbox to \linewidth%
+              {\noindent{}~\hfill{Стр.}}\par%
+              \ifnumless{\value{page}}{3}{}{%
+                \vspace{0.5\onelineskip}
+              }
+              \afterpage{\tocheader}
+            \fi%
+        }{}%
+        }%
+}{
+    \newcommand*{\tocheader}{
+        \ifnumequal{\value{pgnum}}{1}{%
+            \ifendTOC\else\hbox to \linewidth%
+              {\noindent{}~\hfill{Page}}\par%
+              \ifnumless{\value{page}}{3}{}{%
+                \vspace{0.5\onelineskip}
+              }
+              \afterpage{\tocheader}
+            \fi%
+        }{}%
+        }%
+}
+
 
 %%% Оформление заголовков глав, разделов, подразделов %%%
 %% Работа должна быть выполнена ... размером шрифта 12-14 пунктов (ГОСТ Р 7.0.11-2011, 5.3.8). То есть не должно быть надписей шрифтом более 14. Так и поставим.

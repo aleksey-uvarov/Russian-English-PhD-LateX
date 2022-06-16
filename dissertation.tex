@@ -15,7 +15,12 @@
 
 \input{common/data}             % Основные сведения
 \input{common/fonts}            % Определение шрифтов (частичное)
-\input{common/styles}           % Стили общие для диссертации и автореферата
+\ifnumequal{\value{englishthesis}}{1}{
+    \input{common/styles_en}           % Стили общие для диссертации и автореферата
+}{
+    \input{common/styles}           % Стили общие для диссертации и автореферата
+}
+
 \input{Dissertation/disstyles}  % Стили для диссертации
 \input{Dissertation/userstyles} % Стили для специфических пользовательских задач
 
@@ -51,9 +56,13 @@
 
 \begin{document}
 %%% Переопределение именований типовых разделов
-% https://tex.stackexchange.com/a/156050
-\gappto\captionsrussian{\input{common/renames}\unskip} % for polyglossia and babel
-\input{common/renames}
+\ifnumequal{\value{englishthesis}}{0}{
+    % https://tex.stackexchange.com/a/156050
+    \gappto\captionsrussian{\input{common/renames}\unskip} % for polyglossia and babel
+    \input{common/renames}
+}{}
+
+
 
 %%% Структура диссертации (ГОСТ Р 7.0.11-2011, 4)
 \include{Dissertation/title}           % Титульный лист
@@ -81,7 +90,10 @@
 % Оформление заголовков приложений ближе к ГОСТ:
 \setlength{\midchapskip}{20pt}
 \renewcommand*{\afterchapternum}{\par\nobreak\vskip \midchapskip}
-\renewcommand\thechapter{\Asbuk{chapter}} % Чтобы приложения русскими буквами нумеровались
+
+\ifnumequal{\value{englishthesis}}{0}{
+    \renewcommand\thechapter{\Asbuk{chapter}} % Чтобы приложения русскими буквами нумеровались
+}{}
 
 \include{Dissertation/appendix}        % Приложения
 

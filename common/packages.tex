@@ -43,9 +43,14 @@
 
 % Кириллица в нумерации subequations
 % Для правильной работы требуется выполнение сразу после загрузки пакетов
-\patchcmd{\subequations}{\def\theequation{\theparentequation\alph{equation}}}
-{\def\theequation{\theparentequation\asbuk{equation}}}
-{\typeout{subequations patched}}{\typeout{subequations not patched}}
+\ifnumequal{\value{englishthesis}}{0}{
+    \patchcmd{\subequations}{\def\theequation{\theparentequation\alph{equation}}}
+    {\def\theequation{\theparentequation\asbuk{equation}}}
+    {\typeout{subequations patched}}{\typeout{subequations not patched}}
+}{}
+% \patchcmd{\subequations}{\def\theequation{\theparentequation\alph{equation}}}
+% {\def\theequation{\theparentequation\asbuk{equation}}}
+% {\typeout{subequations patched}}{\typeout{subequations not patched}}
 
 %%%% Установки для размера шрифта 14 pt %%%%
 %% Формирование переменных и констант для сравнения (один раз для всех подключаемых файлов)%%
@@ -182,11 +187,14 @@
 %%% Продвинутое управление групповыми ссылками (пока только формулами) %%%
 \ifpresentation
 \else
-    \usepackage[russian]{cleveref} % cleveref имеет сложности со считыванием
+    \ifnumequal{\value{englishthesis}}{0}{
+        \usepackage[russian]{cleveref} % cleveref имеет сложности со считыванием
     % языка из babel. Такое решение русификации вывода выбрано вместо
     % определения в documentclass из опасности что-то лишнее передать во все
     % остальные пакеты, включая библиографию.
-
+    }{
+        \usepackage{cleveref}
+    }
     % Добавление возможности использования пробелов в \labelcref
     % https://tex.stackexchange.com/a/340502/104425
     \usepackage{kvsetkeys}

@@ -1,7 +1,16 @@
 LaTeX-шаблон для русской кандидатской диссертации и её автореферата.
 
-## Why the fork?
-Russian GOST allows for defense in foreign languages. However, one then needs an extra titlepage in Russian.
+## About the fork
+Russian GOST allows for defense in foreign languages. However, one then needs an extra titlepage in Russian, as well as many small details to appear in English. The option to enable English dissertation mode is controlled by variable `englishthesis` in common/setup.
+Most changes are done by putting the Russifying commands into if-blocks.
+
+### Changes so far
+
+* Subequation numbering
+* Subfigure numbering
+* Upright greek letters and math symbols written as in the Russian tradition
+* The word "Стр." in the table of contents
+
 
 ## Особенности
 * Кодировка: UTF-8.
