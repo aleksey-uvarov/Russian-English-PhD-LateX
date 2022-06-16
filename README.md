@@ -1,5 +1,8 @@
 LaTeX-шаблон для русской кандидатской диссертации и её автореферата.
 
+## Why the fork?
+Russian GOST allows for defense in foreign languages. However, one then needs an extra titlepage in Russian.
+
 ## Особенности
 * Кодировка: UTF-8.
 * Стандарт: ГОСТ Р 7.0.11-2011.
