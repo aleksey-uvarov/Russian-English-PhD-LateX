@@ -2,6 +2,10 @@
 \newcommand{\thesisAuthorLastName}{\fixme{Фамилия}}
 \newcommand{\thesisAuthorOtherNames}{\fixme{Имя Отчество}}
 \newcommand{\thesisAuthorInitials}{\fixme{И.\,О.}}
+\newcommand{\thesisAuthorLastNameEn}{\fixme{Lastname}}
+\newcommand{\thesisAuthorOtherNamesEn}{\fixme{Firstname Middlename}}
+\newcommand{\thesisAuthorInitialsEn}{\fixme{F.\,M.}}
+
 \newcommand{\thesisAuthor}             % Диссертация, ФИО автора
 {%
     \texorpdfstring{% \texorpdfstring takes two arguments and uses the first for (La)TeX and the second for pdf
@@ -10,19 +14,35 @@
         \thesisAuthorLastName, \thesisAuthorOtherNames% эта запись для свойств pdf-файла. В таком виде, если pdf будет обработан программами для сбора библиографических сведений, будет правильно представлена фамилия.
     }
 }
+\newcommand{\thesisAuthorEn}             % Диссертация, ФИО автора
+{%
+    \texorpdfstring{% \texorpdfstring takes two arguments and uses the first for (La)TeX and the second for pdf
+        \thesisAuthorLastNameEn~\thesisAuthorOtherNamesEn% так будет отображаться на титульном листе или в тексте, где будет использоваться переменная
+    }{%
+        \thesisAuthorLastNameEn, \thesisAuthorOtherNamesEn% эта запись для свойств pdf-файла. В таком виде, если pdf будет обработан программами для сбора библиографических сведений, будет правильно представлена фамилия.
+    }
+}
+
 \newcommand{\thesisAuthorShort}        % Диссертация, ФИО автора инициалами
 {\thesisAuthorInitials~\thesisAuthorLastName}
+\newcommand{\thesisAuthorShortEn}        % Диссертация, ФИО автора инициалами
+{\thesisAuthorInitialsEn~\thesisAuthorLastNameEn}
+
 %\newcommand{\thesisUdk}                % Диссертация, УДК
 %{\fixme{xxx.xxx}}
 \newcommand{\thesisTitle}              % Диссертация, название
 {\fixme{Длинное название диссертационной работы, состоящее из~достаточно большого
 количества слов, совсем длинное длинное длинное длинное название, из~которого
 простому обывателю знакомы, в~лучшем случае, лишь отдельные слова}}
+\newcommand{\thesisTitleEn}              % Диссертация, название
+{\fixme{A very long title of the dissertation, with many many many many many many many many many many many many words, most of which are completely opaque to a nonspecialist}}
 \newcommand{\thesisSpecialtyNumber}    % Диссертация, специальность, номер
 {\fixme{XX.XX.XX}}
 \newcommand{\thesisSpecialtyTitle}     % Диссертация, специальность, название (название взято с сайта ВАК для примера)
 {\fixme{Технология обработки, хранения и~переработки злаковых, бобовых культур,
 крупяных продуктов, плодоовощной продукции и~виноградарства}}
+\newcommand{\thesisSpecialtyTitleEn}     % Диссертация, специальность, название (название взято с сайта ВАК для примера)
+{\fixme{Theoretical physics}}
 %% \newcommand{\thesisSpecialtyTwoNumber} % Диссертация, вторая специальность, номер
 %% {\fixme{XX.XX.XX}}
 %% \newcommand{\thesisSpecialtyTwoTitle}  % Диссертация, вторая специальность, название
@@ -30,17 +50,27 @@
 %% оздоровительной и~адаптивной физической культуры}}
 \newcommand{\thesisDegree}             % Диссертация, ученая степень
 {\fixme{кандидата физико-математических наук}}
+\newcommand{\thesisDegreeEn}             % Диссертация, ученая степень
+{\fixme{candidate of physical and mathematical sciences}}
 \newcommand{\thesisDegreeShort}        % Диссертация, ученая степень, краткая запись
 {\fixme{канд. физ.-мат. наук}}
+\newcommand{\thesisDegreeShortEn}        % Диссертация, ученая степень, краткая запись
+{\fixme{cand. of phys.-math. sciences}}
 \newcommand{\thesisCity}               % Диссертация, город написания диссертации
 {\fixme{Город}}
+\newcommand{\thesisCityEn}               % Диссертация, город написания диссертации
+{\fixme{City}}
 \newcommand{\thesisYear}               % Диссертация, год написания диссертации
 {\the\year}
 \newcommand{\thesisOrganization}       % Диссертация, организация
 {\fixme{Федеральное государственное автономное образовательное учреждение высшего
 образования <<Длинное название образовательного учреждения <<АББРЕВИАТУРА>>}}
+\newcommand{\thesisOrganizationEn}       % Диссертация, организация
+{\fixme{Federal state autonomous organization for higher education ``Long title of the institute <<ACRONYM>>''}}
 \newcommand{\thesisOrganizationShort}  % Диссертация, краткое название организации для доклада
 {\fixme{НазУчДисРаб}}
+\newcommand{\thesisOrganizationShortEn}  % Диссертация, краткое название организации для доклада
+{\fixme{ThesOrgShortTtl}}
 
 \newcommand{\thesisInOrganization}     % Диссертация, организация в предложном падеже: Работа выполнена в ...
 {\fixme{учреждении с~длинным длинным длинным длинным названием, в~котором
@@ -55,6 +85,15 @@
 {\fixme{И.\,О.~Фамилия}}
 \newcommand{\supervisorRegaliaShort}     % Научный руководитель, регалии
 {\fixme{уч.~ст.,~уч.~зв.}}
+
+\newcommand{\supervisorFioEn}              % Научный руководитель, ФИО
+{\fixme{Lastname Firstname Middlename}}
+\newcommand{\supervisorRegaliaEn}          % Научный руководитель, регалии
+{\fixme{Doctor of philosophy, Professor}}
+\newcommand{\supervisorFioShortEn}         % Научный руководитель, ФИО
+{\fixme{F.\,M.~Lastname}}
+\newcommand{\supervisorRegaliaShortEn}     % Научный руководитель, регалии
+{\fixme{PhD, Prof}}
 
 %% \newcommand{\supervisorTwoDead}{}        % Рисовать рамку вокруг фамилии
 %% \newcommand{\supervisorTwoFio}           % Второй научный руководитель, ФИО
@@ -96,15 +135,23 @@
 \newcommand{\leadingOrganizationTitle} % Ведущая организация, дополнительные строки. Удалить, чтобы не отображать в автореферате
 {\fixme{Федеральное государственное бюджетное образовательное учреждение высшего
 профессионального образования с~длинным длинным длинным длинным названием}}
+\newcommand{\leadingOrganizationTitleEn} % Ведущая организация, дополнительные строки. Удалить, чтобы не отображать в автореферате
+{\fixme{Federal state organization tratatatatata}}
 
 \newcommand{\defenseDate}              % Защита, дата
 {\fixme{DD mmmmmmmm YYYY~г.~в~XX часов}}
+\newcommand{\defenseDateEn}              % Защита, дата
+{\fixme{DD mmmmmmmm YYYY~at~XX:YY}}
 \newcommand{\defenseCouncilNumber}     % Защита, номер диссертационного совета
 {\fixme{Д\,123.456.78}}
 \newcommand{\defenseCouncilTitle}      % Защита, учреждение диссертационного совета
 {\fixme{Название учреждения}}
+\newcommand{\defenseCouncilTitleEn}      % Защита, учреждение диссертационного совета
+{\fixme{Defence council title}}
 \newcommand{\defenseCouncilAddress}    % Защита, адрес учреждение диссертационного совета
 {\fixme{Адрес}}
+\newcommand{\defenseCouncilAddressEn}    % Защита, адрес учреждение диссертационного совета
+{\fixme{Address}}
 \newcommand{\defenseCouncilPhone}      % Телефон для справок
 {\fixme{+7~(0000)~00-00-00}}
 
@@ -113,10 +160,20 @@
 \newcommand{\defenseSecretaryRegalia}  % Секретарь диссертационного совета, регалии
 {\fixme{д-р~физ.-мат. наук}}            % Для сокращений есть ГОСТы, например: ГОСТ Р 7.0.12-2011 + http://base.garant.ru/179724/#block_30000
 
+\newcommand{\defenseSecretaryFioEn}      % Секретарь диссертационного совета, ФИО
+{\fixme{Lastname First Middle}}
+\newcommand{\defenseSecretaryRegaliaEn}  % Секретарь диссертационного совета, регалии
+{\fixme{DSc.}}    
+
 \newcommand{\synopsisLibrary}          % Автореферат, название библиотеки
 {\fixme{Название библиотеки}}
 \newcommand{\synopsisDate}             % Автореферат, дата рассылки
 {\fixme{DD mmmmmmmm}\the\year~года}
+
+\newcommand{\synopsisLibraryEn}          % Автореферат, название библиотеки
+{\fixme{Library title}}
+\newcommand{\synopsisDateEn}             % Автореферат, дата рассылки
+{\fixme{DD mmmmmmmm}\the\year}
 
 % To avoid conflict with beamer class use \providecommand
 \providecommand{\keywords}%            % Ключевые слова для метаданных PDF диссертации и автореферата
