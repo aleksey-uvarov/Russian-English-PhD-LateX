@@ -16,7 +16,11 @@
 
 \input{common/data}           % Основные сведения
 \input{common/fonts}          % Определение шрифтов (частичное)
-\input{common/styles}         % Стили общие для диссертации и автореферата
+\ifnumequal{\value{englishthesis}}{1}{
+    \input{common/styles_en}           % Стили общие для диссертации и автореферата
+}{
+    \input{common/styles}           % Стили общие для диссертации и автореферата
+}
 \input{Synopsis/synstyles}    % Стили для автореферата
 \input{Synopsis/userstyles}   % Стили для специфических пользовательских задач
 
@@ -41,6 +45,9 @@
 
 \input{Synopsis/title}        % Титульный лист
 %\mainmatter                   % В том числе начинает нумерацию страниц арабскими цифрами с единицы
+\ifnumequal{\value{englishthesis}}{1}{
+    \input{Synopsis/title_en} 
+}{}
 \mainmatter*                  % Нумерация страниц не изменится, но начнётся с новой страницы
 \input{Synopsis/content}      % Содержание автореферата
 
