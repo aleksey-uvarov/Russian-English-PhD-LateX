@@ -614,6 +614,11 @@ clearlang=true,% внутренний сброс поля language, если о�
 }
 \newcommand*{\insertbiblioauthor}{
     \printbibliography[heading=pubgroup, section=0, filter=papersregistered, title=\bibtitleauthor]
+    \ifnumequal{\value{englishthesis}}{0}{
+        \printbibliography[heading=pubgroup, section=0, filter=papersregistered, title=\bibtitleauthor]
+    }{
+        \printbibliography[heading=pubgroup, section=0, filter=papersregistered, title=\bibtitleauthorEn]    
+    }
 }
 \newcommand*{\insertbiblioauthorimportant}{
     \printbibliography[heading=pubgroup, section=2, filter=papersregistered, title=\bibtitleauthorimportant]
@@ -637,5 +642,10 @@ clearlang=true,% внутренний сброс поля language, если о�
 }
 
 \newcommand*{\insertbiblioexternal}{
-    \printbibliography[heading=pubgroup,    section=0, keyword=biblioexternal,     title=\bibtitlefull]
+    \ifnumequal{\value{englishthesis}}{0}{
+        \printbibliography[heading=pubgroup,    section=0, keyword=biblioexternal,     title=\bibtitlefull]
+    }{
+        \printbibliography[heading=pubgroup,    section=0, keyword=biblioexternal,     title=\bibtitlefullEn]
+    }
+
 }
