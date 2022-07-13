@@ -252,15 +252,16 @@ In this formula, $U_A$, $U_B$, and their Hermitian conjugates appear in the firs
         = \frac{1 - \frac{1}{d}}{d^2 - 1} (I \otimes I + \mc{S}_n).
     \end{equation}
     Here by $\mc{S}_n$ we mean the operator on $\mathbb{C}^{2^n} \otimes \mathbb{C}^{2^n}$ that swaps the copies: $\mc{S}_n (\ket{\phi} \otimes \ket{\zeta}) = \ket{\zeta} \otimes \ket{\phi}$. The dimension $d$ is henceforth equal to $2^n$. Denoting the prefactor $\frac{1 - \frac{1}{d}}{d^2 - 1}$ as $\alpha$, we obtain the following expression for the variance\footnote{Recall that $\bra{\psi}A \ket{\psi} = \Tr (A \ket{\psi} \bra{\psi})$.}:
-    \begin{equation}
+    \begin{multline}
         \operatorname{Var} \partial_\theta E
-        = \alpha \int \mathrm{d}U_A \Tr ([\mathrm{i}F, U_A^\dagger H U_A])^{\otimes 2}
+        = \alpha \int \mathrm{d}U_A \Tr ([\mathrm{i}F, U_A^\dagger H U_A])^{\otimes 2} + \\
         + \alpha \int \mathrm{d}U_A \Tr ([\mathrm{i}F, U_A^\dagger H U_A][\mathrm{i}F, U_A^\dagger H U_A]).
-    \end{equation}
+    \end{multline}
     The first part of this expression is zero as the commutator is traceless. In the second part, expanding the commutator by definition and using the invariance of $\Tr$ to cyclic shifts, we obtain the following\footnote{Note that, because the identity matrix commutes with everything, we can without loss of generality assume that $c_0 = 0$.}:
-    \begin{equation}
-        \Tr ([\mathrm{i}F, U_A^\dagger H U_A][\mathrm{i}F, U_A^\dagger H U_A]) = -2 \Tr (F U_A^\dagger H U_A F U_A^\dagger H U_A) + 2 \Tr (F^2 U_A^\dagger H^2 U_A).
-    \end{equation}
+    \begin{multline}
+        \Tr ([\mathrm{i}F, U_A^\dagger H U_A][\mathrm{i}F, U_A^\dagger H U_A]) = -2 \Tr (F U_A^\dagger H U_A F U_A^\dagger H U_A) + \\
+        + 2 \Tr (F^2 U_A^\dagger H^2 U_A).
+    \end{multline}
     Since $F$ is a Pauli string, $F^2 = 1$. The second term then reduces to $2 \Tr H^2 = 2d \sum c_i^2$. As for the first term, denote $\tilde{H} := U_A^\dagger H U_A$, and denote $\tilde{H_c}$ the sum of terms in $\tilde{H}$ that commute with $F$ and $\tilde{H_a}$ the sum of terms that anticommute with $F$. Then
     \begin{equation}
         \Tr F \tilde{H} F \tilde{H} = \Tr \tilde{H_c} \tilde{H} - \Tr \tilde{H_a} \tilde{H},

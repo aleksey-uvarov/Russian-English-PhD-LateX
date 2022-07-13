@@ -191,7 +191,11 @@ To see why this is the case, let us consider the dependence of the ansatz on one
 \begin{equation}
     E = \bra{\phi} e^{\rmi G \theta / 2} H e^{-\rmi G \theta / 2} \ket{\phi}.
 \end{equation}
-The partial derivative is then equal to $\bra{\phi} e^{\rmi G \theta / 2} \rmi F H e^{-\rmi G \theta / 2} \ket{\phi} - \bra{\phi} e^{\rmi G \theta / 2} \rmi HF e^{-\rmi G \theta / 2} \ket{\phi}$. If we write down the values $E(\theta \pm \pi / 2)$ at shifted parameters, using the fact that $e^{\rmi G \pi / 4} = \frac{1}{\sqrt 2} (1 + \rmi G)$, we will get the desired formula by simple algebra.
+The partial derivative is then equal to 
+\begin{equation}
+    \frac{\partial E}{\partial \theta} = \bra{\phi} e^{\rmi G \theta / 2} \rmi F H e^{-\rmi G \theta / 2} \ket{\phi} - \bra{\phi} e^{\rmi G \theta / 2} \rmi HF e^{-\rmi G \theta / 2} \ket{\phi}.
+\end{equation}
+If we write down the values $E(\theta \pm \pi / 2)$ at shifted parameters, using the fact that $e^{\rmi G \pi / 4} = \frac{1}{\sqrt 2} (1 + \rmi G)$, we will get the desired formula by simple algebra.
 The parameter-shift rule has been successfully used in VQAs \cite{sweke_stochastic_2019,barison_efficient_2021}, and recently it was generalized to the gates with arbitrary spectrum \cite{kyriienko_generalized_2021}.
 
 The value of the gradient obtained in the experiment is a random variable that estimates the true value of $\frac{\partial E}{\partial \theta_i}$. Therefore, the optimization process is a random process itself, which means that formally the optimization process is an instance of stochastic gradient descent.
@@ -288,12 +292,12 @@ Electrons cannot be together in the same state, so valid states of electrons are
 Via Slater determinants, the basis set of single-electron functions induces a basis in the space of multi-electron wave functions called the Fock basis. The states in this basis can be denoted as $\ket{n_{0, \uparrow}, n_{0, \downarrow}, ...,  n_{k, \uparrow}, n_{k, \downarrow}, ...}$, where $n_{k, \uparrow}, n_{k, \uparrow} \in \{0, 1\}$ mark if the basis state is occupied. In the following, we will drop the spin degree of freedom from the notation and will treat the orbitals with different spin state as two distinct states. 
 
 Now we need to rewrite the Hamiltonian in this basis. This is done using creation and annihilation operators. An \textit{annihilation operator} $a_i$ is defined as follows:
-\begin{equation}
+\begin{gather}
     \label{eq:fermi_annihilation}
-    a_i \ket{n_1, ..., n_{i-1}, 0_i, ...} = 0; \ 
+    a_i \ket{n_1, ..., n_{i-1}, 0_i, ...} = 0; \\ 
     a_i \ket{n_1, ..., n_{i-1}, 1_i, ...} = (-1)^{n_1 + ... + n_{i-1}} 
     \ket{n_1, ..., n_{i-1}, 0_i, ...}.
-\end{equation}
+\end{gather}
 Its Hermitian conjugate $a^\dagger_i$ is called a \textit{creation operator}. Since the interactions we consider cannot create or destroy particles, these operators always come in pairs $a^\dagger_i a_j$, which means taking an electron from the site $j$ to the site $i$. Due to the fact that electrons are fermions, these creation-annihilation operators obey the following anticommutation relations: $\{a_i, a_j \} = 0, \{a_i, a^\dagger_j \} = \delta_{ij}$. 
 % This idea of expressing multi-particle states in terms of population bases and creation-annihilation operators is known as second quantization and it can be found in many standard textbooks on quantum mechanics, e.g.~
 
