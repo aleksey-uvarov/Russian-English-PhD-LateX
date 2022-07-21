@@ -17,7 +17,7 @@ This work considers the quantum model of computation. In this model, classical b
 Strictly speaking, theoretical computer science cannot yet definitively say whether the quantum model of computation is more powerful than the classical model. Nonetheless, the interest to quantum computation is sparked by a number of applications that are currently out of reach for classical algorithms. The most famous such application was found with the discovery of Shor's algorithm, which enables quick factorization of integer numbers in their prime factors and, consequently, the defeat of hitherto unbreakable algorithms of encryption \cite{nielsen_quantum_2010}.
 
 The appeal of quantum computers is offset by the notorious difficulty of making them in practice. While the current devices are far more advanced than the first proof-of-concept devices, they are still a long way from the characteristics that would enable them to, e.g.,~run the Shor's algorithm for any practical means. 
-The limitations of physical quantum computers come from extreme fragility of quantum states. The quantum logic gates are not performed with perfect accuracy, the qubits themselves lose coherence over time, and there is even a probability of incorrect measurement, meaning that even the correct quantum state can be read with errors. For this reason, the current generation of quantum computers is referred to as noisy intermediate-scale quantum (NISQ) devices \cite{bharti_noisy_2021}.
+The limitations of physical quantum computers come from extreme fragility of quantum states. The quantum logic gates are not performed with perfect accuracy, the qubits themselves lose coherence over time, and there is a probability of incorrect measurement, meaning that even the correct quantum state can be read with errors. For this reason, the current generation of quantum computers is referred to as noisy intermediate-scale quantum (NISQ) devices \cite{bharti_noisy_2021}.
 
 While it's impossible to perform some tasks, there is research effort towards developing algorithms capable of working within the limitations of NISQ devices. One such family of quantum algorithms is called variational quantum algorithms \cite{cerezo_variational_2020}. Such algorithms are designed to solve different optimization problems. The broad idea of these algorithms is to encode the solution to the problem in a parametrized quantum state (called an ansatz), so that a series of measurements on that state can give an estimate of the cost function to be minimized. Then the parameters of the state are tuned so as to deliver a minimum to the cost function. 
 
@@ -94,7 +94,7 @@ The work in this thesis is based on the following publications:
 
 \paragraph{Structure of the work.} The dissertation consists of introduction, six chapters, conclusions, bibliography, a list of symbols and abbreviations, a list of tables, and a list of figures.
 
-\paragraph{Acknowledgments.} I thank my advisor, Jacob Biamonte, for providing guidance and assistance at all stages of my doctoral study. I also thank my coauthors, Dmitry Yudin and Andrey Kardashin for a productive collaboration. I am grateful to Akshay Vishwanathan, Richik Sengupta, Soumik Adhikary, Daniil Rabinovich, Hariphan Philathong, Oksana Borzeknova, Ernesto Campos, Aly Nasrallah, and Mauro Morales for numerous insightful discussions. Last but not least, I thank my family and my friends for immense support during my scientific journey.
+\paragraph{Acknowledgments.} I thank my advisor, Jacob Biamonte, for providing guidance and assistance at all stages of my doctoral study. I also thank my coauthors, Dmitry Yudin and Andrey Kardashin for a productive collaboration. I am grateful to Akshay Vishwanathan, Richik Sengupta, Soumik Adhikary, Daniil Rabinovich, Hariphan Philathong, Oksana Borzenkova, Ernesto Campos, Aly Nasrallah, and Mauro Morales for numerous insightful discussions. Last but not least, I thank my family and my friends for immense support during my scientific journey.
 
 \chapter{Main concepts in quantum computation}
 \label{chap:quantum_basics}
@@ -138,7 +138,7 @@ The space of linear operators on $\mc{H}$ can be equipped with a Hilbert-Schmidt
 Relative to this inner product, the space of linear operators on $\mc{H}$ admits an orthogonal basis of \textit{Pauli strings}, which are tensor products of \textit{Pauli matrices}:
 
 \begin{definition}[Pauli matrices]
-    \textit{Pauli matrices} are the $2 \times 2$ identity matrix $I$ and the following three $2 \times 2$ matrices:
+    \textit{Pauli matrices} are the $2 \times 2$ identity matrix $\id$ and the following three $2 \times 2$ matrices:
     \begin{equation}
         X = \begin{pmatrix}
             0 & 1 \\ 1 & 0 
@@ -159,7 +159,7 @@ A \emph{Pauli string} is a tensor product of $n$ Pauli matrices $\{\id, X, Y, Z 
 
 Since the product of two Pauli strings is, up to a multiple of $\rmi$, a Pauli string, it is sometimes important to consider the \emph{Pauli group} consisting of all Pauli strings, possibly multiplied by $\rmi$, $-1$, or $-\rmi$.
 
-The expansion of the operator in this basis will be called its \textit{Pauli decomposition}. For a Hermitian operator $H$ on $\mc{H}$ in a given orthonormal basis, we will call its \textit{locality} $\operatorname{loc} H$ the maximum locality of its terms in the decomposition and its \textit{cardinality} $\operatorname{card} H$ the number of Pauli strings in the decomposition. Note that for a Hermitian operator, the coefficients of the Pauli decomposition will be real.
+The expansion of the operator in the basis of Pauli strings will be called its \textit{Pauli decomposition}. For a Hermitian operator $H$ on $\mc{H}$ in a given orthonormal basis, we will call its \textit{locality} $\operatorname{loc} H$ the maximum locality of its terms in the decomposition and its \textit{cardinality} $\operatorname{card} H$ the number of Pauli strings in the decomposition. Note that for a Hermitian operator, the coefficients of the Pauli decomposition will be real.
 
 All Pauli strings have eigenvalues $\pm 1$. The eigenbases of individual Pauli matrices are also important. The computational basis is the eigenbasis for the $Z$ matrix. The eigenstates of the $X$ matrix are known as the plus state and the minus state: $\ket{+} = \frac{1}{\sqrt{2}}(\ket{0} + \ket{1}), \ \ket{-} = \frac{1}{\sqrt{2}}(\ket{0} - \ket{1})$. The eigenstates of $Y$ are $\ket{y_\pm} = \frac{1}{\sqrt{2}}(\ket{0} \pm \mathrm{i} \ket{1})$.
 
@@ -259,7 +259,7 @@ There are several metrics to estimate the mixedness of a state. The simplest one
 
 This formula makes sense even when $\rho$ has zero eigenvalues because $\lim_{x \rightarrow 0^+} x \log x = 0$. The units of $S(\rho)$ are called \textit{nats} if the formula uses the natural logarithm, and \textit{bits} or \textit{ebits} if the logarithm is base two. 
 
-The Bell state $\ket{\Phi} = \frac{1}{\sqrt{2}}(\ket{00} + \ket{11})$ has exactly one ebit of entropy: the reduced density matrix of any qubit is simply $\frac12 I$, hence the entropy is equal to $-\log \frac{1}{2}$ nats or $-\log_2 \frac{1}{2} = 1$ ebit. For that reason, the states that are obtaied from the Bell state by application of local unitary operators are called \textit{maximally entangled states} in two qubits.
+The Bell state $\ket{\Phi} = \frac{1}{\sqrt{2}}(\ket{00} + \ket{11})$ has exactly one ebit of entropy: the reduced density matrix of any qubit is simply $\frac12 \id$, hence the entropy is equal to $-\log \frac{1}{2}$ nats or $-\log_2 \frac{1}{2} = 1$ ebit. For that reason, the states that are obtaied from the Bell state by application of local unitary operators are called \textit{maximally entangled states} in two qubits.
 
 Unfortunately, estimating von Neumann entropy in practice is hard. An alternative measure, called $\alpha$-\textit{R\'enyi entropy}, is defined for $\alpha \geq 0, \alpha \neq 1$ as follows:
 
@@ -269,7 +269,7 @@ Unfortunately, estimating von Neumann entropy in practice is hard. An alternativ
 
 For $\alpha \rightarrow 1$, the limit of such entropy is the von Neumann entropy. For the 2-R\'enyi entropy, there is an efficient estimation protocol \cite{brydges_probing_2019}.
 
-When we introduced the density matrix formalism, we assumed that there are two subsystems, and found that the reduced density matrix can provide information about the entanglement between the subsystems. However, this also works if one of the subsystem is the entire quantum registry, and the other subsystem is the rest of the Universe. Without going into the details of interpretations of quantum mechanics, we can say the ``entanglement with the Universe'' is practically observed as decoherence of the quantum system. For instance, a \textit{maximally mixed state} $\rho = \frac{1}{\operatorname{dim} \mc{H}} I$ will return uniformly random measurement outcomes in any basis, meaning that a coherent quantum state is completely lost. In addition, a diagonal density matrix can describe a classical probability distribution, without any quantum correlations. For instance, if your experimental apparatus prepares a state $\ket{0}$ with probability $p$, and a state $\ket{1}$ with probability $1 - p$ (without telling you which is the case), then you can describe the state of your system with a density matrix equal to $\operatorname{diag}(p, 1- p)$.
+When we introduced the density matrix formalism, we assumed that there are two subsystems, and found that the reduced density matrix can provide information about the entanglement between the subsystems. However, this also works if one of the subsystem is the entire quantum registry, and the other subsystem is the rest of the Universe. Without going into the details of interpretations of quantum mechanics, we can say the ``entanglement with the Universe'' is practically observed as decoherence of the quantum system. For instance, a \textit{maximally mixed state} $\rho = \frac{1}{\operatorname{dim} \mc{H}} \id$ will return uniformly random measurement outcomes in any basis, meaning that a coherent quantum state is completely lost. In addition, a diagonal density matrix can describe a classical probability distribution, without any quantum correlations. For instance, if your experimental apparatus prepares a state $\ket{0}$ with probability $p$, and a state $\ket{1}$ with probability $1 - p$ (without telling you which is the case), then you can describe the state of your system with a density matrix equal to $\operatorname{diag}(p, 1- p)$.
 
 
 
@@ -296,7 +296,7 @@ For pure states, the only operations we could perform were the unitary maps. For
 An important example of such channel is the \textit{depolarizing channel}:
 
 \begin{equation}
-    \Phi(\rho) = (1-p) \rho + \frac{p}{\operatorname{dim} \mc H} I.
+    \Phi(\rho) = (1-p) \rho + \frac{p}{\operatorname{dim} \mc H} \id.
 \end{equation}
 
 Such channel can act on a single qubit or on many qubits. It is one of the ways to mimic an error incurred by imperfect implementation of quantum gates. Decoherence channel can act on one qubit, several qubits, or the entire qubit registry. 
@@ -306,11 +306,11 @@ Any quantum channel can be presented in the \emph{Kraus form}:
     \label{eq:kraus}
     F(\rho) = \sum_{i=0}^N A_i \rho A_i^\dagger,
 \end{equation}
-where $A_i$ are arbitrary matrices subject to the condition $\sum_{i=1}^N A_i A_i^\dagger = I$. For example, single-qubit depolarizing channel has the following Kraus form:
+where $A_i$ are arbitrary matrices subject to the condition $\sum_{i=1}^N A_i A_i^\dagger = \id$. For example, single-qubit depolarizing channel has the following Kraus form:
 \begin{equation}
     \Phi(\rho) = (1-\frac{3}{4}p) \rho + \frac{p}{4}(X \rho X + Y \rho Y + Z \rho Z).
 \end{equation}
-More precisely, we can write $A_0 = \sqrt{1-\frac{3}{4}p}I, A_1 = \sqrt{\frac{p}{4}} X, A_2 = \sqrt{\frac{p}{4}} Y, A_3 = \sqrt{\frac{p}{4}} Z$.
+More precisely, we can write $A_0 = \sqrt{1-\frac{3}{4}p}\id, A_1 = \sqrt{\frac{p}{4}} X, A_2 = \sqrt{\frac{p}{4}} Y, A_3 = \sqrt{\frac{p}{4}} Z$.
 
 \subsection{Noisy intermediate size quantum (NISQ) computers}
 
