@@ -11,7 +11,7 @@
 \end{equation}
 This means that if we pick $\theta$ so that $E(\theta)$ is minimal, we can find a state that is the best approximation of the ground state in the sense of energy error. The remainder of Section 2.1 works through a simple example of this principle applied to a spin model.
 
-Section 2.2 describes the variational quantum eigensolver (VQE) algorithm. Given a Hamiltonian $H \in \operatorname{Herm} (2^n)$ and an ansatz $\ket{\psi(\theta)}$ that is a differentiable function of $\theta \in \mathbb{R}^k$ for some $k$, this algorithm finds an approximate value of the ground state energy $E_{gs}$. A simple description of VQE is the following loop:
+Section 2.2 describes the variational quantum eigensolver (VQE) algorithm. Given a Hamiltonian $H \in \operatorname{Herm} (2^n)$ and an ansatz $\ket{\psi(\theta)}$ that is a differentiable function of $\theta \in \mathbb{R}^k$ for some $k$, this algorithm finds an approximate value of the ground state energy $E_{gs}$. The algorithm uses a classical optimizer to minimize $E(\theta)$ and a quantum device to evaluate the function at different values of $\theta$. A simple description of VQE is the following loop:
 \begin{enumerate}
     \item Estimate $E(\theta) = \bra{\psi(\theta)} H \ket{\psi(\theta)}$. 
     \item Use a classical optimization routine to find the next value of $\theta$. If the new value of $\theta$ is different from the old value by a threshold smaller than $\epsilon$, stop.
@@ -22,7 +22,10 @@ There are two important details to point out:
 
 \begin{enumerate}
     \item In step 1, the estimate of $E(\theta)$ is sometimes replaced by the estimate of $\nabla E$, depending on the optimization routine in step 2.
-    \item The value $\bra{\psi(\theta)} H \ket{\psi(\theta)}$ is not easy to evaluate for any Hamiltonian. To be able to do that, we need to put additional restrictions on $H$. More precisely, we need $H$ to consist of a polynomial number of operators $h_i$ such that every expectation $\bra{\psi(\theta)} h_i \ket{\psi(\theta)}$ can be measured in polynomial time. An example of a Hamiltonian the conforms to this restriction is a Hamiltonian that consists of a polynomial number of Pauli strings. Alternatively, the Hamiltonian can consist of a polynomial number of projectors on product states.
+    \item The value $\bra{\psi(\theta)} H \ket{\psi(\theta)}$ is not easy to evaluate for any Hamiltonian. To be able to do that, we need to put additional restrictions on $H$. More precisely, we should be able to measure $E(\theta)$ in the number of steps that scales polynomially in the number of qubits. For that, $H$ must consist of a polynomial number of operators $h_i$ such that every expectation $\bra{\psi(\theta)} h_i \ket{\psi(\theta)}$ can be measured in polynomial time. An example of a Hamiltonian the conforms to this restriction is a Hamiltonian that consists of a polynomial number of Pauli strings $h_i$:
+    \begin{equation*}
+        H = \sum_{i=1}^{N \in O(\operatorname{poly}(n))} c_i h_i, \ c_i \in \mathbb{R}.
+    \end{equation*}
 \end{enumerate}
 The rest of Section 2.2 reviews the optimization methods, the methods of estimating the gradients on quantum hardware, and the choice of the ansatz states.
 
@@ -146,7 +149,7 @@ For comparison, we also performed a similar experiment for the transverse field 
 
 Section 3.4 contains concluding remarks. 
 
-\textbf{The fourth chapter} discusses the possibility of applying VQAs to machine learning problems. Section 4.1 introduces the quantum approach to machine learning and reviews the existing literature on the topic. Section 4.2 presents our results in training a quantum classifier on quantum data obtained from VQE experiments. We start with the TFI model studied in the third chapter. This model has a phase transition point at $h=1$. Thus, the solutions obtained by VQE can be partitioned in two subsets: those for $h<1$ and those for $h>1$. The task of the classifier was to distinguish between these two classes.
+\textbf{The fourth chapter} discusses the possibility of applying VQAs to machine learning problems. Section 4.1 introduces the quantum approach to machine learning and reviews the existing literature on the topic. Section 4.2 presents our results in training a quantum classifier on quantum data obtained from VQE experiments. We start with the TFI model studied in the third chapter. This model has a phase transition point at $h=1$. Thus, the solutions obtained by VQE can be partitioned in two subsets: those for $h<1$ and those for $h>1$. The task of the classifier was to distinguish between these two classes. The data supplied to the classifier consisted of approximate ground states of Hamiltonians for different values of $h$.
 
 \begin{figure}
     \centering
@@ -193,7 +196,7 @@ The final paragraph of the section presents the test of the classifier on a mode
 
 Section 4.3 discusses the possible alternative setups in quantum classification. One modification of the protocol is called learning by confusion: when we don't know the location of the phase transition point, we partition the examples with respect to a guess point $h^*$, then compare the results for different values of $h^*$ and pick the one with the best test accuracy \cite{van_nieuwenburg_learning_2017}. We present a simple test of that approach and observe that it successfully predicts the phase transition point. Another important choice in the setup is the cost function. We discuss measuring just the first qubit as a possible alternative. The conclusions of the chapter are given in Section 4.4.
 
-\textbf{The fifth chapter} presents our the results of our study of the barren plateaus phenomenon, previously encountered in the third chapter. Section 5.1 introduces the Haar measure and integration with respect to it. 
+\textbf{The fifth chapter} presents the results of our study of the barren plateaus phenomenon, previously encountered in the third chapter. Section 5.1 introduces the Haar measure and integration with respect to it. 
 \begin{definition}
     The \textit{Haar measure} $\mu: \mathrm{Borel} (U(d)) \rightarrow [0, 1]$ on the unitary group $U(d)$ is the unique left- and right-invariant probability measure on that group. That is, let $V \in U(d)$ and let $\mathcal{A} \in \mathrm{Borel} (U(d))$. Then $\mu(\mathcal{A}) = \mu(V \mathcal{A}) = \mu(\mathcal{A} V)$.
 \end{definition}
@@ -506,7 +509,7 @@ These gates act by conjugation on Pauli strings as follows (we write here only t
     CNOT&: XI \mapsto XX, IX \mapsto IX, ZI \mapsto ZI, IZ \mapsto ZZ
 \end{align}
 
-Next, the dissertation introduces the novel technique based on measuring the expected value of the so-called telescope Hamiltonian $H_{\text{tele}}$. Consider a quantum state $\ket{psi} = U_L ... U_1 \ket{0...0}$. Let $H_0 = -\sum_{i = 1}^n Z_i + n$. Then the telescope Hamiltonian is defined as follows: 
+Next, the dissertation introduces the novel technique based on measuring the expected value of the so-called telescope Hamiltonian $H_{\text{tele}}$. Consider a quantum state $\ket{\psi} = U_L ... U_1 \ket{0...0}$. Let $H_0 = -\sum_{i = 1}^n Z_i + n$. Then the telescope Hamiltonian is defined as follows: 
 
 \begin{definition}
     A \emph{telescope Hamiltonian} for a Clifford circuit $U_L ... U_1$ is the following Hamiltonian:
@@ -548,11 +551,11 @@ For the GHZ state, we can explicitly find the telescope Hamiltonian. Recall that
      \caption{A circuit that prepares the GHZ state.}
      \label{fig:ghz_circuit}
 \end{figure}
-Its only ground state is the GHZ state, and the constant term sets the ground state energy to zero. Thus, we can estimate the fidelity of a candidate GHZ state. Using Lemma~\ref{prop:stability}, we obtain
+Its only ground state is the GHZ state, and the constant term sets the ground state energy to zero. Thus, we can estimate the fidelity of a candidate GHZ state. Using Proposition~\ref{prop:stability}, we obtain
 \begin{equation}
     1 - \frac{\langle H_\mathrm{tele} \rangle}{2}  \leq F \leq 1 - \frac{\langle H_\mathrm{tele} \rangle}{2n}.
 \end{equation}
-Evaluating this energy requires two series of measurements: in the $Z$ basis and in the $X$ basis. Unlike the parity oscillations technique, there is no need to scan through different values of $\varphi$.
+Evaluating this energy requires two series of measurements: in the $Z$ basis and in the $X$ basis. In contrast, the parity oscillations method, commonly used for that purpose, involves a series of experiments in which the qubits are subject to different rotation gates with a varying angle parameter.
 
 Section 6.3 report the results of numerical experiments comparing the proposed method with the existing techniques. The methods are compared in presence of depolarizing noise. The results show that the methods demonstrate comparable accuracy when the number of shots is low, while for the higher amounts on shots, the standard techniques for estimating the fidelity of the GHZ state output results closer to the exact value. Section 6.4 discusses the analogy between the proposed method and the randomized benchmarking technique. Section 6.5 concludes the chapter.
 
