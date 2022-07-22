@@ -10,80 +10,9 @@
 % One thesis had chapter summary at the end of each chapter. Looks like a good idea
 % Introduction is apparently just a regular chapter
 
-\paragraph{Relevance of the work.} 
+\input{common/characteristic}
 
-This work considers the quantum model of computation. In this model, classical bits -- modelled by Boolean variables -- are replaced by qubits, modelled by two-dimensional complex vectors. The key effects enabling the quantum computations are quantum superposition and quantum entanglement. While the state of $n$ bits is a Cartesian product of individual states, the state of $n$ qubits belongs to the \textit{tensor} product of individual spaces. Because of this, a state of the qubits can in principle be not factorizable into single-qubit states. This, on the one hand, enables quantum computers to process many different classical bit states in parallel, and on the other hand, makes them extremely difficult to simulate by classical means: naively simulating a quantum device with $n$ qubits requires working with $2^n$-dimensional complex vectors.
-
-Strictly speaking, theoretical computer science cannot yet definitively say whether the quantum model of computation is more powerful than the classical model. Nonetheless, the interest to quantum computation is sparked by a number of applications that are currently out of reach for classical algorithms. The most famous such application was found with the discovery of Shor's algorithm, which enables quick factorization of integer numbers in their prime factors and, consequently, the defeat of hitherto unbreakable algorithms of encryption \cite{nielsen_quantum_2010}.
-
-The appeal of quantum computers is offset by the notorious difficulty of making them in practice. While the current devices are far more advanced than the first proof-of-concept devices, they are still a long way from the characteristics that would enable them to, e.g.,~run the Shor's algorithm for any practical means. 
-The limitations of physical quantum computers come from extreme fragility of quantum states. The quantum logic gates are not performed with perfect accuracy, the qubits themselves lose coherence over time, and there is a probability of incorrect measurement, meaning that even the correct quantum state can be read with errors. For this reason, the current generation of quantum computers is referred to as noisy intermediate-scale quantum (NISQ) devices \cite{bharti_noisy_2021}.
-
-While it's impossible to perform some tasks, there is research effort towards developing algorithms capable of working within the limitations of NISQ devices. One such family of quantum algorithms is called variational quantum algorithms \cite{cerezo_variational_2020}. Such algorithms are designed to solve different optimization problems. The broad idea of these algorithms is to encode the solution to the problem in a parametrized quantum state (called an ansatz), so that a series of measurements on that state can give an estimate of the cost function to be minimized. Then the parameters of the state are tuned so as to deliver a minimum to the cost function. 
-
-Despite the simplicity of the approach, the variational quantum algorithms are far from being understood well. Since they involve optimization, there are lots of questions concerning the convergence of this optimization, the properties of the cost function landscape, the choice of the circuits, etc. This dissertation contributes to the literature both in numerical experiments and in theoretical results.
-
-\paragraph{Dissertation goals.} The goal of this dissertation is to investigate the performance of variational quantum algorithms and to further the theoretical understanding of their behavior. To achieve this goal, we set up and performed the following tasks:
-
-\begin{enumerate}
-    \item Develop a numerical implementation the variational quantum eigensolver algorithm and study its convergence for physical problems. Study its dependence on the depth of the circuit, number of qubits, and other relevant parameters.
-    \item Develop a numerical implementation of a quantum classifier and investigate its properties. In particular, study its ability to learn on quantum data, namely on quantum states obtained using VQE.
-    \item Study the physically relevant properties of the VQE-optimized solutions for the next-nearest-neighbor Hubbard model. Analyze the behavior of gradients in the associated optimization problem.
-    \item Calculate a bound on the variance of derivatives of Hamiltonian cost functions with respect to random selection of circuit parameters. Estimate the onset of the barren plateau regime with the increasing depth and connectivity of a parametrized quantum circuit.
-    \item Develop an algorithm for bounding the fidelity of the Greenberger-Horne-Zeilinger state and other Clifford states based on their parent Hamiltonian.
-\end{enumerate}
-
-\paragraph{Statements to be defended.}
-
-\begin{enumerate}
-
-    \item Numerical experiments show that Adiabatically-assisted VQE finds different solutions depending on the direction of scanning through the instances of the Heisenberg XXZ model. For the Heisenberg XXZ model, the path-dependence occurs near the critical point while the transverse-field Ising model shows no path-dependence.
-    \item The approximation found by VQE shows the largest energy error in the vicinity of the critical point of either spin model. For the best ans\"atze considered, the maximum energy error is $0.12$ units for the Ising model and $1.1$ units for the Heisenberg model. We argue that this is consistent with the fact that critical states demonstrate a logarithmic scaling of entanglement entropy, 
-    unattainable by a fixed-depth ansatz circuit.
-    \item We proposed a quantum classifier which demonstrates that quantum machine learning models can partition quantum data. The classifier was tested for ten qubits on the VQE-approximated ground states of transverse-field Ising model and was able to predict the phase of the system with 97\% accuracy. A similar experiment conducted for the Heisenberg XXZ model yielded 93\% accuracy.
-
-    \item Variational quantum eigensolver was numerically applied to a Hubbard-like model, with ansatz depth ranging from one to ten layers. For 4 qubits and fewer, VQE found exact solution up to machine precision with 1-2 layers. For 5-11 qubits, the error scaling with depth was fit to exponential decay (correlation coefficient between depth and $\log_{10} \Delta E$ was $-0.92$ or less in all cases).
-    
-    \item We estimated the variance of partial derivatives of the energy cost function for the next-nearest-neighbor Hubbard model in 4-10 qubits by random sampling of the ansatz parameters. The model was transformed to a qubit Hamiltonian by Jordan--Wigner and Bravyi--Kitaev transformations. 
-    We observed that, under the Jordan--Wigner transformation, the dependence of the variance on circuit depth becomes constant after at most 15 layers. The behavior of variance as a function of the number of qubits is consistent with the prediction of exponential decay given in \cite{mcclean_barren_2018}.
-    For the Bravyi--Kitaev transform we observed a longer transient behavior with the circuit depth.
-    \item We derived a lower bound on the variance of derivatives for parametrized quantum circuits composed of blocks that constitute local 2-designs. Let the block that depends on a real parameter $\theta$ be situated in layer $l_c$ out of $l$ layers total. Then the variance $\Var \partial_\theta E$ behaves as
-    \begin{equation*}
-        \Var \partial_\theta E \in \sum_h \Omega\left(3^{-|C(h)|} \left(\frac{3}{4}\right)^{l-l_c}\right).
-    \end{equation*}
-    Here the sum is taken over every Pauli string $h$ in the Pauli decomposition of the cost function, and $|C(h)|$ is the size of the causal cone of this Pauli string.
-    \item We developed an algorithm to estimate the fidelity of Clifford states using at most $n$ series of Pauli measurements, where $n$ is the number of qubits. 
-\end{enumerate}
-
-\paragraph{Scientific novelty.}
-% It seems that statements to defend can very much overlap with the sci novelty, at least in some examples they do.
-\begin{enumerate}
-    \item On the original proposal \cite{garcia-saez_addressing_2018}, the adiabatically-assisted VQE algorithm was used for a family of Hamiltonians $H(\tau)$ such that $H(0)$ is an easily-solved problem, while $H(1)$ encodes a difficult problem. For the transverse-field Ising and Heisenberg models, the ground state problem dependence on the parameter can be characterized as <<easy, hard, easy>>. 
-    \item We demonstrated the trainability of a quantum classifier on intrinsically quantum data. Prior art appears to focus on classification problems based on classical input data.    
-    \item For fermionic Hamiltonians, the onset of barren plateaus phenomenon was shown to occur differently depending on the choice of fermion-to-qubit mapping, which was previously not considered in the literature.
-    \item We derived a lower bound on the variance of the derivatives of cost function with respect to ansatz parameters. Compared to the existing literature \cite{mcclean_barren_2018,cerezo_cost-function-dependent_2020}, our estimate depends only on the size of the causal cone of the circuit and is applicable to quantum circuits of arbitrary topology (as long as they consist of two-qubit blocks that constitute approximate 2-designs).
-    % we applied the theory of $t$-designs in the Heisenberg picture, considering the random unitaries as operators acting on Pauli strings of $2n$ qubits (which we dubbed super Pauli strings).
-    \item We proposed a method of estimating fidelity for the GHZ state that only involves two series of measurements. The method relies on the relation between the energy of a state with respect to a Hamiltonian and the fidelity between that state and the ground state (the stability lemma).
-\end{enumerate}
-
-\paragraph{Theoretical and practical significance.} Classification of quantum phases by quantum means is potentially useful for condensed matter physics. The results on the convergence of VQE are important in designing the algorithm in more detail. The proposed method for validating the GHZ state is potentially useful for evaluating the properties of quantum devices in a simple manner.
-Practical significance of the work is supported by the usage of the results in delivering the RFBR grant No.\ 19-31-90159 ``Aspiranty''.
-
-The \textbf{validity of the work} is supported by numerical experiments and rigorous mathematical proofs, where applicable.
-
-\paragraph{Presentations and validation of the results.}
-The main results of the work have been reported in the following scientific conferences and workshops:
-
-\begin{enumerate}
-    \item International Conference on Quantum Technologies (July 15-19, 2019, Moscow, poster);
-    \item 62nd MIPT conference (Nov 18-24, 2019, Moscow, talk);
-    \item Inaugural Symposium for Computational Materials Program of Excellence (September 4-6, 2019, Moscow, poster);
-    \item International School on Quantum Techonologies (March 1-7, 2020, Sochi, poster);
-    \item International Conference on Quantum Technologies (July 12-16, 2021, Moscow, online, poster);
-    \item QuOne workshop on Quantum Machine Learning (Feb 22-24, 2022, Tehran, online, talk).
-\end{enumerate}
-
-\paragraph{Publications.}
+\subsection*{Publications}
 The work in this thesis is based on the following publications:
 
 \begin{enumerate}
@@ -92,9 +21,7 @@ The work in this thesis is based on the following publications:
     \item \fullcite{uvarov_barren_2021}
 \end{enumerate}
 
-\paragraph{Structure of the work.} The dissertation consists of introduction, six chapters, conclusions, bibliography, a list of symbols and abbreviations, a list of tables, and a list of figures.
-
-\paragraph{Acknowledgments.} I thank my advisor, Jacob Biamonte, for providing guidance and assistance at all stages of my doctoral study. I also thank my coauthors, Dmitry Yudin and Andrey Kardashin for a productive collaboration. I am grateful to Akshay Vishwanathan, Richik Sengupta, Soumik Adhikary, Daniil Rabinovich, Hariphan Philathong, Oksana Borzenkova, Ernesto Campos, Aly Nasrallah, and Mauro Morales for numerous insightful discussions. Last but not least, I thank my family and my friends for immense support during my scientific journey.
+\subsection*{Acknowledgments} I thank my advisor, Jacob Biamonte, for providing guidance and assistance at all stages of my doctoral study. I also thank my coauthors, Dmitry Yudin and Andrey Kardashin for a productive collaboration. I am grateful to Akshay Vishwanathan, Richik Sengupta, Soumik Adhikary, Daniil Rabinovich, Hariphan Philathong, Oksana Borzenkova, Ernesto Campos, Aly Nasrallah, and Mauro Morales for numerous insightful discussions. Last but not least, I thank my family and my friends for immense support during my scientific journey.
 
 \chapter{Main concepts in quantum computation}
 \label{chap:quantum_basics}

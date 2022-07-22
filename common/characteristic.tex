@@ -1,211 +1,83 @@
 
-{\actuality} Обзор, введение в тему, обозначение места данной работы в
-мировых исследованиях и~т.\:п., можно использовать ссылки на~другие
-работы~\autocite{Gosele1999161,Lermontov}
-(если их~нет, то~в~автореферате
-автоматически пропадёт раздел <<Список литературы>>). Внимание! Ссылки
-на~другие работы в~разделе общей характеристики работы можно
-использовать только при использовании \verb!biblatex! (из-за технических
-ограничений \verb!bibtex8!. Это связано с тем, что одна
-и~та~же~характеристика используются и~в~тексте диссертации, и в
-автореферате. В~последнем, согласно ГОСТ, должен присутствовать список
-работ автора по~теме диссертации, а~\verb!bibtex8! не~умеет выводить в~одном
-файле два списка литературы).
-При использовании \verb!biblatex! возможно использование исключительно
-в~автореферате подстрочных ссылок
-для других работ командой \verb!\autocite!, а~также цитирование
-собственных работ командой \verb!\cite!. Для этого в~файле
-\verb!common/setup.tex! необходимо присвоить положительное значение
-счётчику \verb!\setcounter{usefootcite}{1}!.
+\subsection*{Relevance of the work} 
 
-Для генерации содержимого титульного листа автореферата, диссертации
-и~презентации используются данные из файла \verb!common/data.tex!. Если,
-например, вы меняете название диссертации, то оно автоматически
-появится в~итоговых файлах после очередного запуска \LaTeX. Согласно
-ГОСТ 7.0.11-2011 <<5.1.1 Титульный лист является первой страницей
-диссертации, служит источником информации, необходимой для обработки и
-поиска документа>>. Наличие логотипа организации на~титульном листе
-упрощает обработку и~поиск, для этого разметите логотип вашей
-организации в папке images в~формате PDF (лучше найти его в векторном
-варианте, чтобы он хорошо смотрелся при печати) под именем
-\verb!logo.pdf!. Настроить размер изображения с логотипом можно
-в~соответствующих местах файлов \verb!title.tex!  отдельно для
-диссертации и автореферата. Если вам логотип не~нужен, то просто
-удалите файл с~логотипом.
+This work considers the quantum model of computation. In this model, classical bits -- modelled by Boolean variables -- are replaced by qubits, modelled by two-dimensional complex vector spaces. The key effects enabling the quantum computations are quantum superposition and quantum entanglement. While the state space of $n$ bits is a Cartesian product of individual state spaces, the state space of $n$ qubits is the \textit{tensor} product of individual spaces. Because of this, a state of the qubits can in principle be not factorizable into single-qubit states. This, on the one hand, enables quantum computers to process many different classical bit states in parallel, and on the other hand, makes them extremely difficult to simulate by classical means: naively simulating a quantum device with $n$ qubits requires working with $2^n$-dimensional complex vectors.
 
-\ifsynopsis
-Этот абзац появляется только в~автореферате.
-Для формирования блоков, которые будут обрабатываться только в~автореферате,
-заведена проверка условия \verb!\!\verb!ifsynopsis!.
-Значение условия задаётся в~основном файле документа (\verb!synopsis.tex! для
-автореферата).
-\else
-Этот абзац появляется только в~диссертации.
-Через проверку условия \verb!\!\verb!ifsynopsis!, задаваемого в~основном файле
-документа (\verb!dissertation.tex! для диссертации), можно сделать новую
-команду, обеспечивающую появление цитаты в~диссертации, но~не~в~автореферате.
-\fi
+The complexity class of problems efficiently solved by a quantum computer is called $\mathbf{BQP}$. While it is not known how $\mathbf{BQP}$ relates to $\mathbf{P}$, the class of problems efficiently solved by a classical computer, the former contains problems that do not yet have an efficient classical solutions. The most famous example of that was found with the discovery of Shor's algorithm, which enables quick factorization of integer numbers in their prime factors and, consequently, the defeat of hitherto unbreakable algorithms of encryption \cite{nielsen_quantum_2010}.
 
-% {\progress}
-% Этот раздел должен быть отдельным структурным элементом по
-% ГОСТ, но он, как правило, включается в описание актуальности
-% темы. Нужен он отдельным структурынм элемементом или нет ---
-% смотрите другие диссертации вашего совета, скорее всего не нужен.
+The appeal of quantum computers is offset by the notorious difficulty of making them in practice. While the current devices are far more advanced than the first proof-of-concept devices, they are still a long way from the characteristics that would enable them to, e.g.,~run the Shor's algorithm for any practical means. 
+The limitations of physical quantum computers come from extreme fragility of quantum states. The quantum logic gates are not performed with perfect accuracy, the qubits themselves lose coherence over time, and there is even a probability of incorrect measurement, meaning that even the correct quantum state can be read with errors. For this reason, the current generation of quantum computers is referred to as noisy intermediate-scale quantum (NISQ) devices \cite{bharti_noisy_2021}.
 
-{\aim} данной работы является \ldots
+While large-scale, fault-tolerant quantum computers are a long way ahead, there is research effort towards developing algorithms that can work within the limitations of NISQ devices. One such family of quantum algorithms is called variational quantum algorithms \cite{cerezo_variational_2020}. Such algorithms are designed to solve optimization problems. The broad idea of these algorithms is to encode the solution to the problem in a parametrized quantum state (called an ansatz), so that a series of measurements on that state can give an estimate of the cost function to be minimized. Then the parameters of the state are tuned so as to deliver a minimum to the cost function. The range of problems that can be addressed by this approach is rather extensive: from classical optimization problems, like the travelling salesepson problem, to problems that arise in quantum chemistry and quantum physics, e.g.~investigation of the potential landscape of chemical reactions~\cite{reiher_elucidating_2017} and ground state properties of electronic lattices~\cite{cade_strategies_2019}. Another important branch of study is devoted to quantum machine learning with variational algotihms~\cite{skolik_layerwise_2020,havlicek_supervised_2019,schuld_circuit-centric_2020}. In that approach, a quantum device acts as a classifier that is trained to partition data points encoded as quantum states.
 
-Для~достижения поставленной цели необходимо было решить следующие {\tasks}:
-\begin{enumerate}[beginpenalty=10000] % https://tex.stackexchange.com/a/476052/104425
-  \item Исследовать, разработать, вычислить и~т.\:д. и~т.\:п.
-  \item Исследовать, разработать, вычислить и~т.\:д. и~т.\:п.
-  \item Исследовать, разработать, вычислить и~т.\:д. и~т.\:п.
-  \item Исследовать, разработать, вычислить и~т.\:д. и~т.\:п.
+(a paragraph about vqe here?)
+
+Despite the simplicity of the approach, the variational quantum algorithms are far from being understood well. Since they involve optimization, there are lots of questions concerning the convergence of this optimization, the properties of the cost function landscape, the choice of the circuits, etc. This dissertation contributes to the literature both in numerical experiments and in theoretical results.
+
+\subsection*{Dissertation goals} 
+
+The goal of this dissertation is to investigate the performance of variational quantum algorithms and to further the theoretical understanding of their behavior. To achieve this goal, we set up and performed the following tasks:
+
+\begin{enumerate}
+    \item Develop a numerical implementation the variational quantum eigensolver algorithm and study its convergence for physical problems. Study its dependence on the depth of the circuit, number of qubits, and other relevant parameters.
+    \item Develop a numerical implementation of a quantum classifier and investigate its properties. In particular, study its ability to learn on quantum data, namely on quantum states obtained using VQE.
+    \item Study the physically relevant properties of the VQE-optimized solutions for the next-nearest-neighbor Hubbard model. Analyze the behavior of gradients in the associated optimization problem.
+    \item Calculate a bound on the variance of derivatives of Hamiltonian cost functions with respect to random selection of circuit parameters. Estimate the onset of the barren plateau regime with the increasing depth and connectivity of a parametrized quantum circuit.
+    \item Develop an algorithm for bounding the fidelity of the Greenberger-Horne-Zeilinger state and other Clifford states based on their parent Hamiltonian.
 \end{enumerate}
 
+\subsection*{Statements defended}
 
-{\novelty}
-\begin{enumerate}[beginpenalty=10000] % https://tex.stackexchange.com/a/476052/104425
-  \item Впервые \ldots
-  \item Впервые \ldots
-  \item Было выполнено оригинальное исследование \ldots
+\begin{enumerate}
+
+    \item We applied Adiabatically-assisted VQE (AAVQE) to the ground state problem for the Heisenberg XXZ model, i.e.~the family of spin Hamiltonians of the type 
+    \begin{equation*}
+        H(h) = \sum_{i=1}^{n} X_i X_{i+1} + Y_i Y_{i+1}+ h Z_i Z_{i+1},
+    \end{equation*}
+    where $X_i, Y_i$, and $Z_i$ are respective Pauli matrices acting on $i$'th spin. AAVQE consists in using the solution for $H(h)$ as a starting point of the optimization process for $H(h + \delta h)$, eventually finding an approximate ground state for a range of parameters $[h_{\mathrm{min}}, h_{\mathrm{max}}]$. Numerical experiments show that Adiabatically-assisted VQE finds different solutions depending on the direction of whether the optimization starts from $h_{\mathrm{min}}$ and increases $h$, or starts from $h_{\mathrm{max}}$ and gradually decreases $h$. Specifically, the largest difference occures near the critical point of the model ($h = 1$). In contrast, the transverse-field Ising model shows no such behavior near the critical point: both methods of running AAVQE yield the same ground state energies up to the tolerance of the optimizer.
+    \item The approximation found by VQE shows the largest energy error in the vicinity of the critical point of either spin model. For the best ans\"atze considered, the maximum energy error is $0.12$ units for the Ising model and $1.1$ units for the Heisenberg model. We argue that this is consistent with the fact that critical states demonstrate a logarithmic scaling of entanglement entropy, 
+    unattainable by a fixed-depth ansatz circuit.
+    \item We proposed a quantum classifier which demonstrates that quantum machine learning models can partition quantum data. The classifier was tested for ten qubits on the VQE-approximated ground states of transverse-field Ising model and was able to predict the phase of the system with 97\% accuracy. A similar experiment conducted for the Heisenberg XXZ model yielded 93\% accuracy.
+
+    \item Variational quantum eigensolver was numerically applied to a Hubbard-like model, with ansatz depth ranging from one to ten layers. For 4 qubits and fewer, VQE found the exact solution up to machine precision with 1-2 layers. For 5-11 qubits, the error scaling with depth was fit to exponential decay (correlation coefficient between depth and $\log_{10} \Delta E$ was $-0.92$ or less in all cases).
+    
+    \item We estimated the variance of partial derivatives of the energy cost function for the next-nearest-neighbor Hubbard model in 4-10 qubits by random sampling of the ansatz parameters. The model was transformed to a qubit Hamiltonian by Jordan--Wigner and Bravyi--Kitaev transformations. 
+    We observed that, under the Jordan--Wigner transformation, the dependence of the variance on circuit depth becomes constant after at most 15 layers. The behavior of the variance as a function of the number of qubits is consistent with the prediction of exponential decay given in \cite{mcclean_barren_2018}.
+    For the Bravyi--Kitaev transform we observed a longer transient behavior with the circuit depth.
+    \item We derived a lower bound on the variance of derivatives for parametrized quantum circuits composed of blocks that constitute local 2-designs. Let the block that depends on a real parameter $\theta$ be situated in layer $l_c$ out of $l$ layers total. Then the variance $\Var \partial_\theta E$ behaves as
+    \begin{equation*}
+        \Var \partial_\theta E \in \sum_h \Omega\left(3^{-|C(h)|} \left(\frac{3}{4}\right)^{l-l_c}\right).
+    \end{equation*}
+    Here the sum is taken over every Pauli string $h$ in the Pauli decomposition of the cost function, and $|C(h)|$ is the size of the causal cone of this Pauli string.
+    \item We developed an algorithm to estimate the fidelity of Clifford states using at most $n$ series of Pauli measurements, where $n$ is the number of qubits. 
 \end{enumerate}
 
-{\influence} \ldots
-
-{\methods} \ldots
-
-{\defpositions}
-\begin{enumerate}[beginpenalty=10000] % https://tex.stackexchange.com/a/476052/104425
-  \item Первое положение
-  \item Второе положение
-  \item Третье положение
-  \item Четвертое положение
+\subsection*{Scientific novelty}
+% It seems that statements to defend can very much overlap with the sci novelty, at least in some examples they do.
+\begin{enumerate}
+    \item In the original proposal \cite{garcia-saez_addressing_2018}, the adiabatically-assisted VQE algorithm was used for a family of Hamiltonians $H(\tau)$ such that $H(0)$ is an easily-solved problem, while $H(1)$ encodes a difficult problem. For the transverse-field Ising and Heisenberg models, the ground state problem dependence on the parameter can be characterized as <<easy, hard, easy>>: $H(0)$ is easy to solve, $H(1)$ is difficult, then in the limit of $\tau \rightarrow \infty$ the problem $H(\tau)$ again becomes easy.
+    \item We demonstrated that a quantum classifier can be trained on intrinsically quantum data. Prior art appears to focus on classification problems based on classical input data.    
+    \item For fermionic Hamiltonians, the onset of barren plateaus phenomenon was shown to occur differently depending on the choice of fermion-to-qubit mapping, which was previously not considered in the literature.
+    \item We derived a lower bound on the variance of the derivatives of cost function with respect to ansatz parameters. Compared to the existing literature \cite{mcclean_barren_2018,cerezo_cost-function-dependent_2020}, our estimate depends only on the size of the causal cone of the circuit and is applicable to quantum circuits of arbitrary topology (as long as they consist of two-qubit blocks that constitute approximate 2-designs).
+    % we applied the theory of $t$-designs in the Heisenberg picture, considering the random unitaries as operators acting on Pauli strings of $2n$ qubits (which we dubbed super Pauli strings).
+    \item We proposed a method of estimating fidelity for the GHZ state that only involves two series of measurements. The method relies on the relation between the energy of a state with respect to a Hamiltonian and the fidelity between that state and the ground state (the stability lemma).
 \end{enumerate}
-В папке Documents можно ознакомиться с решением совета из Томского~ГУ
-(в~файле \verb+Def_positions.pdf+), где обоснованно даются рекомендации
-по~формулировкам защищаемых положений.
 
-{\reliability} полученных результатов обеспечивается \ldots \ Результаты находятся в соответствии с результатами, полученными другими авторами.
+\subsection*{Theoretical and practical significance} Classification of quantum phases by quantum means is potentially useful for condensed matter physics. The results on the convergence of VQE are important for the design of quantum optimization algorithms. The proposed method for validating the GHZ state is potentially useful for evaluating the properties of quantum devices in a simple manner.
+Practical significance of the work is supported by the usage of the results in delivering the RFBR grant No.\ 19-31-90159 ``Aspiranty''.
 
+The \textbf{validity of the work} is supported by numerical experiments and rigorous mathematical proofs, where applicable.
 
-{\probation}
-Основные результаты работы докладывались~на:
-перечисление основных конференций, симпозиумов и~т.\:п.
+\subsection*{Presentations and validation of the results}
+The main results of the work have been reported in the following scientific conferences and workshops:
 
-{\contribution} Автор принимал активное участие \ldots
+\begin{enumerate}
+    \item International Conference on Quantum Technologies (July 15-19, 2019, Moscow, poster);
+    \item 62nd MIPT conference (Nov 18-24, 2019, Moscow, talk);
+    \item Inaugural Symposium for Computational Materials Program of Excellence (September 4-6, 2019, Moscow, poster);
+    \item International School on Quantum Technologies (March 1-7, 2020, Sochi, poster);
+    \item International Conference on Quantum Technologies (July 12-16, 2021, Moscow, online, poster);
+    \item QuOne workshop on Quantum Machine Learning (Feb 22-24, 2022, Tehran, online, talk).
+\end{enumerate}
 
-\ifnumequal{\value{bibliosel}}{0}
-{%%% Встроенная реализация с загрузкой файла через движок bibtex8. (При желании, внутри можно использовать обычные ссылки, наподобие `\cite{vakbib1,vakbib2}`).
-    {\publications} Основные результаты по теме диссертации изложены
-    в~XX~печатных изданиях,
-    X из которых изданы в журналах, рекомендованных ВАК,
-    X "--- в тезисах докладов.
-}%
-{%%% Реализация пакетом biblatex через движок biber
-    \begin{refsection}[bl-author, bl-registered]
-        % Это refsection=1.
-        % Процитированные здесь работы:
-        %  * подсчитываются, для автоматического составления фразы "Основные результаты ..."
-        %  * попадают в авторскую библиографию, при usefootcite==0 и стиле `\insertbiblioauthor` или `\insertbiblioauthorgrouped`
-        %  * нумеруются там в зависимости от порядка команд `\printbibliography` в этом разделе.
-        %  * при использовании `\insertbiblioauthorgrouped`, порядок команд `\printbibliography` в нём должен быть тем же (см. biblio/biblatex.tex)
-        %
-        % Невидимый библиографический список для подсчёта количества публикаций:
-        \printbibliography[heading=nobibheading, section=1, env=countauthorvak,          keyword=biblioauthorvak]%
-        \printbibliography[heading=nobibheading, section=1, env=countauthorwos,          keyword=biblioauthorwos]%
-        \printbibliography[heading=nobibheading, section=1, env=countauthorscopus,       keyword=biblioauthorscopus]%
-        \printbibliography[heading=nobibheading, section=1, env=countauthorconf,         keyword=biblioauthorconf]%
-        \printbibliography[heading=nobibheading, section=1, env=countauthorother,        keyword=biblioauthorother]%
-        \printbibliography[heading=nobibheading, section=1, env=countregistered,         keyword=biblioregistered]%
-        \printbibliography[heading=nobibheading, section=1, env=countauthorpatent,       keyword=biblioauthorpatent]%
-        \printbibliography[heading=nobibheading, section=1, env=countauthorprogram,      keyword=biblioauthorprogram]%
-        \printbibliography[heading=nobibheading, section=1, env=countauthor,             keyword=biblioauthor]%
-        \printbibliography[heading=nobibheading, section=1, env=countauthorvakscopuswos, filter=vakscopuswos]%
-        \printbibliography[heading=nobibheading, section=1, env=countauthorscopuswos,    filter=scopuswos]%
-        %
-        \nocite{*}%
-        %
-        {\publications} Основные результаты по теме диссертации изложены в~\arabic{citeauthor}~печатных изданиях,
-        \arabic{citeauthorvak} из которых изданы в журналах, рекомендованных ВАК\sloppy%
-        \ifnum \value{citeauthorscopuswos}>0%
-            , \arabic{citeauthorscopuswos} "--- в~периодических научных журналах, индексируемых Web of~Science и Scopus\sloppy%
-        \fi%
-        \ifnum \value{citeauthorconf}>0%
-            , \arabic{citeauthorconf} "--- в~тезисах докладов.
-        \else%
-            .
-        \fi%
-        \ifnum \value{citeregistered}=1%
-            \ifnum \value{citeauthorpatent}=1%
-                Зарегистрирован \arabic{citeauthorpatent} патент.
-            \fi%
-            \ifnum \value{citeauthorprogram}=1%
-                Зарегистрирована \arabic{citeauthorprogram} программа для ЭВМ.
-            \fi%
-        \fi%
-        \ifnum \value{citeregistered}>1%
-            Зарегистрированы\ %
-            \ifnum \value{citeauthorpatent}>0%
-            \formbytotal{citeauthorpatent}{патент}{}{а}{}\sloppy%
-            \ifnum \value{citeauthorprogram}=0 . \else \ и~\fi%
-            \fi%
-            \ifnum \value{citeauthorprogram}>0%
-            \formbytotal{citeauthorprogram}{программ}{а}{ы}{} для ЭВМ.
-            \fi%
-        \fi%
-        % К публикациям, в которых излагаются основные научные результаты диссертации на соискание учёной
-        % степени, в рецензируемых изданиях приравниваются патенты на изобретения, патенты (свидетельства) на
-        % полезную модель, патенты на промышленный образец, патенты на селекционные достижения, свидетельства
-        % на программу для электронных вычислительных машин, базу данных, топологию интегральных микросхем,
-        % зарегистрированные в установленном порядке.(в ред. Постановления Правительства РФ от 21.04.2016 N 335)
-    \end{refsection}%
-    \begin{refsection}[bl-author, bl-registered]
-        % Это refsection=2.
-        % Процитированные здесь работы:
-        %  * попадают в авторскую библиографию, при usefootcite==0 и стиле `\insertbiblioauthorimportant`.
-        %  * ни на что не влияют в противном случае
-        \nocite{vakbib2}%vak
-        \nocite{patbib1}%patent
-        \nocite{progbib1}%program
-        \nocite{bib1}%other
-        \nocite{confbib1}%conf
-    \end{refsection}%
-        %
-        % Всё, что вне этих двух refsection, это refsection=0,
-        %  * для диссертации - это нормальные ссылки, попадающие в обычную библиографию
-        %  * для автореферата:
-        %     * при usefootcite==0, ссылка корректно сработает только для источника из `external.bib`. Для своих работ --- напечатает "[0]" (и даже Warning не вылезет).
-        %     * при usefootcite==1, ссылка сработает нормально. В авторской библиографии будут только процитированные в refsection=0 работы.
-}
-
-При использовании пакета \verb!biblatex! будут подсчитаны все работы, добавленные
-в файл \verb!biblio/author.bib!. Для правильного подсчёта работ в~различных
-системах цитирования требуется использовать поля:
-\begin{itemize}
-        \item \texttt{authorvak} если публикация индексирована ВАК,
-        \item \texttt{authorscopus} если публикация индексирована Scopus,
-        \item \texttt{authorwos} если публикация индексирована Web of Science,
-        \item \texttt{authorconf} для докладов конференций,
-        \item \texttt{authorpatent} для патентов,
-        \item \texttt{authorprogram} для зарегистрированных программ для ЭВМ,
-        \item \texttt{authorother} для других публикаций.
-\end{itemize}
-Для подсчёта используются счётчики:
-\begin{itemize}
-        \item \texttt{citeauthorvak} для работ, индексируемых ВАК,
-        \item \texttt{citeauthorscopus} для работ, индексируемых Scopus,
-        \item \texttt{citeauthorwos} для работ, индексируемых Web of Science,
-        \item \texttt{citeauthorvakscopuswos} для работ, индексируемых одной из трёх баз,
-        \item \texttt{citeauthorscopuswos} для работ, индексируемых Scopus или Web of~Science,
-        \item \texttt{citeauthorconf} для докладов на конференциях,
-        \item \texttt{citeauthorother} для остальных работ,
-        \item \texttt{citeauthorpatent} для патентов,
-        \item \texttt{citeauthorprogram} для зарегистрированных программ для ЭВМ,
-        \item \texttt{citeauthor} для суммарного количества работ.
-\end{itemize}
-% Счётчик \texttt{citeexternal} используется для подсчёта процитированных публикаций;
-% \texttt{citeregistered} "--- для подсчёта суммарного количества патентов и программ для ЭВМ.
-
-Для добавления в список публикаций автора работ, которые не были процитированы в
-автореферате, требуется их~перечислить с использованием команды \verb!\nocite! в
-\verb!Synopsis/content.tex!.
+\subsection*{Structure of the dissertation} The dissertation consists of introduction, six chapters, conclusions, bibliography, list of symbols and abbreviations, list of tables, list of figures, and supplemental material.
