@@ -30,7 +30,7 @@ In this chapter, we will briefly review the basic mathematical concepts necessar
 
 \section{Definitions and notation}
 
-A \textit{qubit} is a quantum system with two controllable states. We will model such a system with a two-dimensional state space $\mathbb{C}^2$ with a distinguished orthonormal basis, called the \textit{computational basis} and denoted as $\{ \ket{0}, \ket{1} \}$. The Hilbert space\footnote{Throughout the thesis, we will only work in finite-dimensional Hilbert spaces.} $\mathcal{H}$ of $n$ qubits is the complex vector space $(\mathbb{C}^2)^{\otimes n}$. \textit{Pure states} of the qubits are the vectors $|\psi \rangle \in \mathcal{H}$ of norm one. 
+A \textit{qubit} is a quantum system with two controllable states. We will model such a system with a two-dimensional state space $\mathbb{C}^2$ with a distinguished orthonormal basis, called the \textit{computational basis} and denoted as $\{ \ket{0}, \ket{1} \}$. The Hilbert space\footnote{Throughout the thesis, we will only work in finite-dimensional Hilbert spaces.} $\mathcal{H}$ of $n$ qubits is the complex vector space $(\mathbb{C}^2)^{\otimes n}$. \textit{Pure states} of the qubits are the vectors $|\psi \rangle \in \mathcal{H}$ of norm one (vectors denoted like that are called \textit{ket vectors}). The elements of the dual space $\mc{H}^*$ are depicted as so-called \textit{bra vectors} $\bra{\psi}$. The inner product between two states $\ket{\phi}$ and $\ket{\psi}$ is denoted simply as a concatenation of the corresponding bra and ket vectors $\braket{\phi}{\psi}$.
 % Generic quantum states are described as positive semidefinite (or nonnegative) operators on $\mathcal{H}$ called \textit{density operators}, \textit{density matrices}, or \textit{mixed states} (more on that later). The former can be included in the latter: a projector $\ket{\psi} \bra{\psi}$ is a bona fide density operator.
 
 The standard basis for the registry of $n$ qubits, also called the computational basis, is the tensor product of individual computational bases. 
@@ -54,7 +54,7 @@ A key feature of quantum states is entanglement:
             \end{array}
         \right.     
     \end{equation}
-    The $n$-qubit analog of the Bell state $\ket{\Psi} = \frac{1}{\sqrt{2}}(\ket{0...0} + \ket{1...1})$ is known as the \textit{Greenberger--Horne--Zeilinger state} or as the \textit{Schr\"odinger's cat state}.
+    The $n$-qubit analog of the Bell state $\ket{\Psi} = \frac{1}{\sqrt{2}}(\ket{0...0} + \ket{1...1})$ is known as the \textit{Greenberger--Horne--Zeilinger state} or as \textit{Schr\"odinger's cat state}.
 \end{example}
 
 
@@ -136,7 +136,11 @@ Sometimes a quantum gate will depend on a real parameter. In this case, the circ
 
 \subsubsection{Measurements}
 
-In general, when we measure a quantum system, we measure some kind of \textit{observable}, i.e.~a Hermitian operator. Let $A$ be some observable with eigenvalues $\lambda_i$ and corresponding eigenstates $\ket{\lambda_i}$. Let the system be in the state $\ket{\psi} = \sum c_i \ket{\lambda_i}$. Then, upon measurement, we will observe the value $\lambda_i$ with probability $|c_i|^2$. The expected value of the measurement outcome is $\sum_i |c_i|^2 \lambda_i$. If the measurement does not destroy the system (e.g.~in photonic quantum computing, measuring a qubit effectively destroys it), the state after measurement with outcome $\lambda$ can be described by the following \textit{density operator} (see Section \ref{subsec:mixed}):
+In general, when we measure a quantum system, we measure some kind of \textit{observable}, i.e.~a Hermitian operator. Let $A$ be some observable with eigenvalues $\lambda_i$ and corresponding eigenstates $\ket{\lambda_i}$. Let the system be in the state $\ket{\psi} = \sum c_i \ket{\lambda_i}$. Then, upon measurement, we will observe the value $\lambda_i$ with probability $|c_i|^2$. The expected value of the measurement outcome is $\sum_i |c_i|^2 \lambda_i$. Importantly, the expected value of $A$ with respect to $\ket{\psi}$ is also expressed as
+\begin{equation}
+    \langle A \rangle = \bra{\psi} A \ket{\psi}.
+\end{equation}
+If the measurement does not destroy the system (e.g.~in photonic quantum computing, measuring a qubit effectively destroys it), the state after measurement with outcome $\lambda$ can be described by the following \textit{density operator} (see Section \ref{subsec:mixed}):
 \begin{equation}
     \label{eq:postmeasurement}
     \rho_{\text{post}} = \frac{\Pi_\lambda \ket{\psi}\bra{\psi} \Pi_\lambda}{\Tr (\ket{\psi}\bra{\psi} \Pi_\lambda)},
@@ -151,34 +155,51 @@ Without any extra effort, a quantum computer makes a $Z$ measurement on each qub
 
 \subsection{Mixed states and density matrices}
 \label{subsec:mixed}
-By the very nature of quantum computation as external manipulation of the qubits, it is not enough to consider the qubits as isolated physical entities. In order to focus on the behavior of qubits, though, one can ``trace out'' the irrelevant degrees of freedom, while preserving their action on the qubits. To do that, we represent quantum states not as vectors in $\mc{H}$, but as a certain kind of linear operators on $\mc{H}$. A pure state $\ket{\psi} \in \mc{H}$ is mapped to an operator $\rho := \ket{\psi}\bra{\psi} \in \mathrm{End}(\mc{H})$. The expected value of an observable $B$ is now equal to $\Tr (\rho B)$.
+By the very nature of quantum computation as external manipulation of the qubits, it is not enough to consider the qubits as isolated physical entities. In order to focus on the behavior of qubits, though, one can get rid of the irrelevant degrees of freedom, while preserving their action on the qubits. To do that, we represent quantum states not as vectors in $\mc{H}$, but as a certain kind of linear operators on $\mc{H}$. 
 
-
-Now, consider a state space of two subsystems $\mc{H} = \mc{H}_1 \otimes \mc{H}_2$. Denote $\{\ket{e_i}\}$ the basis of $\mc{H}_1$ and $\{\ket{f_j}\}$ the basis of $\mc{H}_2$. If we measure some observable $A$ only on the first subsystem, that is equivalent to measuring $A \otimes I$ on the entire system. If the state is equal to $\sum_{ij} c_{ij} \ket{e_i} \ket{f_j}$, then the density matrix is equal to $\sum_{ijkl} c^*_{ij} c_{kl}\ket{e_k} \ket{f_l}\bra{e_i} \bra{f_j}$. The expected value will now be equal to $\sum_{ijkl} c^*_{ij} c_{kl} A_{ik} \delta_{jl}$, which means that the only relevant information in $\rho$ is stored in its \textit{partial trace}:
-
-\begin{equation}
-    [\rho_{\mc{H}_1}]_{ik} := \sum_l \rho_{ilkl}.
-\end{equation}
-
-This partial trace now has a few remarkable properties:
-
-\begin{enumerate}
-    \item The operator $\rho_{\mc{H}_1}$ can be represented as $\ket{\phi}\bra{\phi}$ for some $\ket{\phi} \in \mc{H}_1$ if and only if the full state $\ket{\psi}$ is biseparable;
-    \item the $i$'th diagonal entry of $\rho_{\mc{H}_1}$ contains the probabilities of observing the system in the state $\ket{e_i}$;
-    \item the trace of $\rho_{\mc{H}_1}$ is equal to one as probabilities of all possible events sum up to one.
-\end{enumerate}
-
-Such operators are called \textit{density operators} or \textit{density matrices}. These operators are non-negative operators with trace equal to one. The space of density operators includes pure states as a subset, but it also brings new objects.
-
-Any density matrix can be diagonalized (because any non-negative operator is also a Hermitian operator), i.e.~there is a basis $e_i$ such that
-
+\begin{definition}
+    A \textit{density operator} (or \textit{density matrix}) on $\mc{H}$ is an operator $\rho \in \operatorname{End}(\mc{H})$ with the following properties:
+    \begin{enumerate}
+        \item $\rho$ is Hermitian;
+        \item All eigenvalues of $\rho$ are non-negative;
+        \item $\Tr \rho = 1$.
+    \end{enumerate}
+\end{definition}
+Any density matrix can be diagonalized, i.e.~there is a basis $e_i$ such that
 \begin{equation}
     \rho = \sum_i p_i \ket{e_i}\bra{e_i}.
 \end{equation}
+When such a diagonalization has only one term, we call $\rho$ a pure state, otherwise it is called a \textit{mixed state}. Note that the state is pure if and only if $\rho^2 = \rho$, that is, when the matrix is a projector $\ket{\psi} \bra{\psi}$. 
+% Quantum states described using density operators are also called \textit{mixed states}. The reason is the following: since any Hermitian matrix can be diagonalized, any mixed state can be presented as a 
 
-When such a diagonalization has only one term, we call $\rho$ a pure state, otherwise it is called a \textit{mixed state}. Note that the state is pure if and only if $\rho^2 = \rho$.
 
-There are several metrics to estimate the mixedness of a state. The simplest one is \textit{purity}, which we define as $\Tr{\rho^2}$. The more complicated measure is the \textit{von Neumann entropy}:
+% The set of mixed states includes pure states: a pure state $\ket{\psi} \in \mc{H}$ is mapped to an operator $\rho := \ket{\psi}\bra{\psi} \in \mathrm{End}(\mc{H})$.
+
+
+One way to arrive to density matrix formalism is to consider the situation when there is an entangled pure state in a Hilbert space $\mc{H} = \mc{H}_1 \otimes \mc{H}_2$, and the observer only has access to one subsystem. Denote $\{\ket{e_i}\}$ the basis of $\mc{H}_1$ and $\{\ket{f_j}\}$ the basis of $\mc{H}_2$. If we measure some observable $A$ only on the first subsystem, that is equivalent to measuring $A \otimes \id$ on the entire system. If the state is equal to $\sum_{ij} c_{ij} \ket{e_i} \ket{f_j}$, then the expected value of $A$ is equal to 
+\begin{equation}
+    \label{eq:expect_partial}
+    \langle A \rangle = \sum_{ijkl} c^*_{ij} c_{kl} (\bra{e_i} \bra{f_j}) A (\ket{e_k} \ket{e_l}) = \sum_{ijkl} c^*_{ij} c_{kl} \bra{e_i} A \ket{e_k} \delta_{jl}.
+\end{equation}
+Define the \textit{partial trace} of the state as follows:
+\begin{equation}
+    [\rho_{\mc{H}_1}]_{ik} := \sum_j c^*_{ij} c_{kj} \ket{e_k} \bra{e_i}.
+\end{equation}
+The expected value (\ref{eq:expect_partial}) is now equal to 
+\begin{equation}
+    \langle A \rangle = \Tr (\rho_{\mc{H}_1} A).
+\end{equation}
+This partial trace is now a density matrix called \textit{reduced density matrix}. Of course, reduced density matrices are defined not only for pure states, but also for mixed states.
+
+% \begin{enumerate}
+%     \item The operator $\rho_{\mc{H}_1}$ can be represented as $\ket{\phi}\bra{\phi}$ for some $\ket{\phi} \in \mc{H}_1$ if and only if the full state $\ket{\psi}$ is biseparable w.r.t.~the partition $\mc{H}_1 \otimes \mc{H}_2$;
+%     \item the $i$'th diagonal entry of $\rho_{\mc{H}_1}$ contains the probabilities of observing the system in the state $\ket{e_i}$;
+%     \item the trace of $\rho_{\mc{H}_1}$ is equal to one as probabilities of all possible events sum up to one.
+% \end{enumerate}
+
+There are several metrics to estimate the mixedness of a state. The simplest one is \textit{purity}, which we define as $\Tr{\rho^2}$. A state $\rho$ is pure if and only if $\rho$ is a projector, i.e. $\rho^2 = \rho$. In this case, the purity is equal to 1, which is the maximum possible purity. The minimum possible purity can be obtained from the relation between different vector norms. Let $\lambda_i, i = 1,..., \operatorname{dim} \mc{H}$ be the eigenvalues of $\rho$. Their sum is the one-norm of the vector $\boldsymbol{\lambda} = (\lambda_1, ..., \lambda_{\operatorname{dim} \mc{H}})$. The purity is the sum of squares of $\lambda_i$, i.e. the square of the two-norm. From the relations between $p$-norms of vectors we know that $||\lambda||_2 \geq ||\lambda||_2 / \sqrt{\operatorname{dim} \mc{H}}$. This implies that minimum possible purity is equal to $1/\operatorname{dim} \mc{H}$. This minimum is reached by the \textit{maximally mxied state} $\rho = \id / \operatorname{dim} \mc{H}$.
+
+A more complicated measure of mixedness is the \textit{von Neumann entropy}:
 
 \begin{equation}
     S(\rho) = - \Tr \rho \log \rho.
@@ -188,37 +209,19 @@ This formula makes sense even when $\rho$ has zero eigenvalues because $\lim_{x 
 
 The Bell state $\ket{\Phi} = \frac{1}{\sqrt{2}}(\ket{00} + \ket{11})$ has exactly one ebit of entropy: the reduced density matrix of any qubit is simply $\frac12 \id$, hence the entropy is equal to $-\log \frac{1}{2}$ nats or $-\log_2 \frac{1}{2} = 1$ ebit. For that reason, the states that are obtaied from the Bell state by application of local unitary operators are called \textit{maximally entangled states} in two qubits.
 
-Unfortunately, estimating von Neumann entropy in practice is hard. An alternative measure, called $\alpha$-\textit{R\'enyi entropy}, is defined for $\alpha \geq 0, \alpha \neq 1$ as follows:
+The notion of entanglement can also be extended to mixed states. A density matrix is called entangled if it cannot be represented as a convex combination of product states, i.e.~in the form $\rho = \sum p_i \rho_1^{(i)} \otimes \rho_2^{(i)}$, where $p_i$ are positive~\cite{werner_quantum_1989}. However, for mixed states, deciding whether a given state is entangled or not is already a complicated problem, which is only solved for small systems~\cite{horodecki_five_2022}.
 
-\begin{equation}
-    S_\alpha (\rho) = \frac{\log \Tr \rho^\alpha}{1 - \alpha}.
-\end{equation}
-
-For $\alpha \rightarrow 1$, the limit of such entropy is the von Neumann entropy. For the 2-R\'enyi entropy, there is an efficient estimation protocol \cite{brydges_probing_2019}.
-
-When we introduced the density matrix formalism, we assumed that there are two subsystems, and found that the reduced density matrix can provide information about the entanglement between the subsystems. However, this also works if one of the subsystem is the entire quantum registry, and the other subsystem is the rest of the Universe. Without going into the details of interpretations of quantum mechanics, we can say the ``entanglement with the Universe'' is practically observed as decoherence of the quantum system. For instance, a \textit{maximally mixed state} $\rho = \frac{1}{\operatorname{dim} \mc{H}} \id$ will return uniformly random measurement outcomes in any basis, meaning that a coherent quantum state is completely lost. In addition, a diagonal density matrix can describe a classical probability distribution, without any quantum correlations. For instance, if your experimental apparatus prepares a state $\ket{0}$ with probability $p$, and a state $\ket{1}$ with probability $1 - p$ (without telling you which is the case), then you can describe the state of your system with a density matrix equal to $\operatorname{diag}(p, 1- p)$.
+\subsection{Noise models}
 
 
 
+The evolution of states in quantum mechanics is unitary. For density operators, a unitary $U$ describing the evolution of the state acts on them by conjugation: $\rho \mapsto U \rho U^\dagger$.
 
-% When considering pure states is not enough, we will work with states as positive semidefinite Hermitian operators $\rho \in \mathrm{End}(\mathcal{H})$, whose trace is equal to one. If the rank of $\rho$ is equal to one, the state is called a pure state, otherwise it is a \textit{mixed state}.
+For pure states, the only operations we could perform were the unitary maps.  To model decoherence and noise, one should use linear maps that don't reduce to conjugation by a unitary matrix. These maps can be very diverse, with the only restriction being that they should always map a valid density matrix to a valid density matrix. A density matrix is a positive operator with trace one, so the map should preserve these two properties. Such maps are the completely positive, trace-preserving maps (CPTP), also called \textit{quantum channels}.
 
-
-
-% Quantum mechanics has a way to describe such situations using the formalism of \textit{density matrices}. The states that are described this way are called \textit{mixed states}:
-
-% \begin{definition}[mixed state]
-%     adsf
-% \end{definition}
-
-% \begin{definition}[density matrix]
-%     A density matrix on $\mathcal{H}$ is a positive semidefinite linear operator.
-% \end{definition}
-
-
-\subsection{Quantum channels}
-
-For pure states, the only operations we could perform were the unitary maps. For density operators, such unitary maps act by conjugation: $\rho \mapsto U \rho U^\dagger$. To model decoherence and noise, one should use linear maps that don't reduce to conjugation by a unitary matrix. These maps can be very diverse, with the only restriction being that they should always map a valid density matrix to a valid density matrix. A density matrix is a positive operator with trace one, so the map should preserve these two properties. Such maps are the completely positive, trace-preserving maps (CPTP), also called \textit{quantum channels}.
+\begin{definition}
+    A quantum channel is a linear map $\Phi: \operatorname{End}(\mc{H}_1) \rightarrow \operatorname{End}(\mc{H}_2)$, where $\mc{H}_1$ and $\mc{H}_2$ are Hilbert spaces, such that $\Phi$ is completely positive and trace-preserving.
+\end{definition}
 
 An important example of such channel is the \textit{depolarizing channel}:
 
@@ -238,8 +241,6 @@ where $A_i$ are arbitrary matrices subject to the condition $\sum_{i=1}^N A_i A_
     \Phi(\rho) = (1-\frac{3}{4}p) \rho + \frac{p}{4}(X \rho X + Y \rho Y + Z \rho Z).
 \end{equation}
 More precisely, we can write $A_0 = \sqrt{1-\frac{3}{4}p}\id, A_1 = \sqrt{\frac{p}{4}} X, A_2 = \sqrt{\frac{p}{4}} Y, A_3 = \sqrt{\frac{p}{4}} Z$.
-
-\subsection{Noisy intermediate size quantum (NISQ) computers}
 
 The main hurdle to the creation of large-scale quantum computers is decoherence. While there is an extensive amount of work on quantum error correction, practical demonstrations of error-corrected logical qubits are currently in their infancy. The algorithms studied in this dissertation are designed for quantum computers that have restricted capacity in the amount of qubits and fidelities of gates. This means that the circuits that can be realized are quite short: at the time of writing, the record for variational quantum algorithms is 25 layers of gates for 20 qubits \cite{rosenberg_experimental_2021}. 
 
