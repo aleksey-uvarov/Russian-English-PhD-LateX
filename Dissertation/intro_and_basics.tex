@@ -213,14 +213,24 @@ The notion of entanglement can also be extended to mixed states. A density matri
 
 \subsection{Noise models}
 
+When we introduced the density matrix formalism, we assumed that there are two subsystems, and found that the reduced density matrix can provide information about the entanglement between the subsystems. However, this also works if one of the subsystem is the entire quantum registry, and the other subsystem is the rest of the Universe. This way, the state of the quantum device is described by a density matrix.
 
+A perfect quantum gate $U$ will act on a mixed quantum state $\rho$ by conjugation: $\rho \mapsto U \rho U^\dagger$. However, when a unitary maps acts by conjugation on a composite system, its action on reduced density matrices does not necessarily reduce to conjugation by unitary maps.
 
-The evolution of states in quantum mechanics is unitary. For density operators, a unitary $U$ describing the evolution of the state acts on them by conjugation: $\rho \mapsto U \rho U^\dagger$.
+\begin{example}
+    Consider a quantum circuit consisting of two gates: a Hadamard gate acting on the first qubit and a CNOT gate acting on qubits $(1, 2)$. Starting from the state $\ket{00}$, this circuit prepares the Bell state $\frac{1}{\sqrt{2}}(\ket{00} + \ket{11})$. Before the application of the gates, the reduced density matrix of the first qubit was equal to $\ket{0} \bra{0}$, while after the gates, it is equal to $\frac12 \id$. These matrices have different rank, hence they cannot be conjugate to each other.
+\end{example}
 
-For pure states, the only operations we could perform were the unitary maps.  To model decoherence and noise, one should use linear maps that don't reduce to conjugation by a unitary matrix. These maps can be very diverse, with the only restriction being that they should always map a valid density matrix to a valid density matrix. A density matrix is a positive operator with trace one, so the map should preserve these two properties. Such maps are the completely positive, trace-preserving maps (CPTP), also called \textit{quantum channels}.
+In general, physically meaningful operations that can be performed on density matrices are described by a special kind of maps called \textit{quantum channels}.
+
+% For pure states, the only operations we could perform were the unitary maps.  To model decoherence and noise, one should use linear maps that don't reduce to conjugation by a unitary matrix. These maps can be very diverse, with the only restriction being that they should always map a valid density matrix to a valid density matrix. A density matrix is a positive operator with trace one, so the map should preserve these two properties. Such maps are the completely positive, trace-preserving maps (CPTP), also called 
 
 \begin{definition}
-    A quantum channel is a linear map $\Phi: \operatorname{End}(\mc{H}_1) \rightarrow \operatorname{End}(\mc{H}_2)$, where $\mc{H}_1$ and $\mc{H}_2$ are Hilbert spaces, such that $\Phi$ is completely positive and trace-preserving.
+    A quantum channel is a linear map $\Phi: \operatorname{End}(\mc{H}_1) \rightarrow \operatorname{End}(\mc{H}_2)$, where $\mc{H}_1$ and $\mc{H}_2$ are Hilbert spaces, such that:
+    \begin{enumerate}
+        \item $\Phi$ is completely positive: if $\rho$ is positive semidefinite, then so is $\Phi(\rho)$
+        \item $\Phi$ is trace preserving: $\Tr(\rho) = \Tr(\Phi(\rho))$.
+    \end{enumerate}
 \end{definition}
 
 An important example of such channel is the \textit{depolarizing channel}:
