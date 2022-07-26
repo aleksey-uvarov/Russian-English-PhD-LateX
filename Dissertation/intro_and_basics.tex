@@ -218,7 +218,7 @@ When we introduced the density matrix formalism, we assumed that there are two s
 A perfect quantum gate $U$ will act on a mixed quantum state $\rho$ by conjugation: $\rho \mapsto U \rho U^\dagger$. However, when a unitary maps acts by conjugation on a composite system, its action on reduced density matrices does not necessarily reduce to conjugation by unitary maps.
 
 \begin{example}
-    Consider a quantum circuit consisting of two gates: a Hadamard gate acting on the first qubit and a CNOT gate acting on qubits $(1, 2)$. Starting from the state $\ket{00}$, this circuit prepares the Bell state $\frac{1}{\sqrt{2}}(\ket{00} + \ket{11})$. Before the application of the gates, the reduced density matrix of the first qubit was equal to $\ket{0} \bra{0}$, while after the gates, it is equal to $\frac12 \id$. These matrices have different rank, hence they cannot be conjugate to each other.
+    Consider a quantum circuit consisting of two gates: a Hadamard gate acting on the first qubit and a CNOT gate acting on qubits $(1, 2)$. Starting from the state $\ket{00}$, this circuit prepares the Bell state $\frac{1}{\sqrt{2}}(\ket{00} + \ket{11})$. Before the application of the gates, the reduced density matrix of the first qubit was equal to $\ket{0} \bra{0}$, while after the gates, it is equal to $\frac12 \id$. These matrices have different rank, therefore they cannot be conjugate to each other.
 \end{example}
 
 In general, physically meaningful operations that can be performed on density matrices are described by a special kind of maps called \textit{quantum channels}.
@@ -233,80 +233,132 @@ In general, physically meaningful operations that can be performed on density ma
     \end{enumerate}
 \end{definition}
 
-An important example of such channel is the \textit{depolarizing channel}:
+We will not go deep into the theory of quantum channels, instead only highlighting a few interesting examples. For a more detailed account we refer the reader to Ref.~\cite{watrous_theory_2018}.
+\begin{enumerate}
+    \setcounter{enumi}{-1}
+    \item The identity channel $\rho \mapsto \rho$ is of course a quantum channel;
+    \item Conjugation by a unitary $\mathrm{Ad}_U(\rho) = U \rho U^\dagger$;
+    \item A \textit{depolarizing channel} with noise strength $p$ is used to simulate uniform, featureless noise:
+    \begin{equation}
+        \Phi(\rho) = (1-p) \rho + \frac{p}{\operatorname{dim} \mc H} \id.
+    \end{equation}
+    \item For single-qubit denisty matrices, one can consider \textit{bit flip}    and \textit{phase flip} channels:
+    \begin{align}
+        \Psi_{\mathrm{bit}}(\rho) &= (1-p) \rho + p \cdot X \rho X \\
+        \Psi_{\mathrm{phase}}(\rho) &= (1-p) \rho + p \cdot Z \rho Z 
+    \end{align}
 
-\begin{equation}
-    \Phi(\rho) = (1-p) \rho + \frac{p}{\operatorname{dim} \mc H} \id.
-\end{equation}
 
-Such channel can act on a single qubit or on many qubits. It is one of the ways to mimic an error incurred by imperfect implementation of quantum gates. Decoherence channel can act on one qubit, several qubits, or the entire qubit registry. 
+\end{enumerate}
 
-Any quantum channel can be presented in the \emph{Kraus form}:
-\begin{equation}
-    \label{eq:kraus}
-    F(\rho) = \sum_{i=0}^N A_i \rho A_i^\dagger,
-\end{equation}
-where $A_i$ are arbitrary matrices subject to the condition $\sum_{i=1}^N A_i A_i^\dagger = \id$. For example, single-qubit depolarizing channel has the following Kraus form:
+Let us give a few more observations about the depolarizing channel. First, we note that for one qubit, this channel has the following form:
 \begin{equation}
     \Phi(\rho) = (1-\frac{3}{4}p) \rho + \frac{p}{4}(X \rho X + Y \rho Y + Z \rho Z).
 \end{equation}
-More precisely, we can write $A_0 = \sqrt{1-\frac{3}{4}p}\id, A_1 = \sqrt{\frac{p}{4}} X, A_2 = \sqrt{\frac{p}{4}} Y, A_3 = \sqrt{\frac{p}{4}} Z$.
+Second, we observe that, as long as their supports are the same, the depolarizing channel and the conjugation channel commute. This can be verified directly:
+\begin{gather}
+    \mathrm{Ad}_U \circ \Phi_p (\rho) = \mathrm{Ad}_U ((1 - p) \rho + \frac{p}{\dim{\mc{H}}}\id) = (1 - p) U \rho U^\dagger + \frac{p}{\dim{\mc{H}}}\id; \\
+    \Phi_p \circ \mathrm{Ad}_U (\rho) = \Phi_p (U \rho U^\dagger) =  (1 - p) U \rho U^\dagger + \frac{p}{\dim{\mc{H}}}\id.
+\end{gather}
+This is no longer the case when the support of $U$ is larger than the support of $\Phi$. For example, a two-qubit swap channel
+\begin{equation}
+    \mathrm{SWAP}: \rho \otimes \eta \mapsto \eta \otimes \rho
+\end{equation}
+does not commute with the depolarizing channel acting on the first qubit.
+% ---
 
-The main hurdle to the creation of large-scale quantum computers is decoherence. While there is an extensive amount of work on quantum error correction, practical demonstrations of error-corrected logical qubits are currently in their infancy. The algorithms studied in this dissertation are designed for quantum computers that have restricted capacity in the amount of qubits and fidelities of gates. This means that the circuits that can be realized are quite short: at the time of writing, the record for variational quantum algorithms is 25 layers of gates for 20 qubits \cite{rosenberg_experimental_2021}. 
+% An important example of such channel is the \textit{depolarizing channel}:
 
-Whether we will ever reach fault-tolerant quantum computation is still a debatable question, but even if we do, some developments of the NISQ era may remain relevant.
+% \begin{equation}
+%     \Phi(\rho) = (1-p) \rho + \frac{p}{\operatorname{dim} \mc H} \id.
+% \end{equation}
 
-\section{Basic information on tensor networks}
+% Such channel can act on a single qubit or on many qubits. It is one of the ways to mimic an error incurred by imperfect implementation of quantum gates. Decoherence channel can act on one qubit, several qubits, or the entire qubit registry. 
 
-The theory of quantum computation extensively uses the notion of tensor product, and thus greatly benefits from the pictorial language of \textit{tensor networks}. In fact, the diagrams of quantum circuits themselves can be thought of as tensor network diagrams.
+% Any quantum channel can be presented in the \emph{Kraus form}:
+% \begin{equation}
+%     \label{eq:kraus}
+%     F(\rho) = \sum_{i=0}^N A_i \rho A_i^\dagger,
+% \end{equation}
+% where $A_i$ are arbitrary matrices subject to the condition $\sum_{i=1}^N A_i A_i^\dagger = \id$. For example, single-qubit depolarizing channel has the following Kraus form:
 
-Let $V$ be the vector space of interest (most frequently we will deal with the qubit state space $\mathbb{C}^2$). Then $V^*$ denotes the space of linear functions from $V$ to $\mathbb{C}$. In tensor network diagrams, we will draw a vector $v \in V$ as a triangle-shaped box with one wire sprouting to the left, while a covector $\delta \in V^*$ is depicted as a triangle-shaped box with one wire sprouting to the right:
+% More precisely, we can write $A_0 = \sqrt{1-\frac{3}{4}p}\id, A_1 = \sqrt{\frac{p}{4}} X, A_2 = \sqrt{\frac{p}{4}} Y, A_3 = \sqrt{\frac{p}{4}} Z$.
+
+% The main hurdle to the creation of large-scale quantum computers is decoherence. While there is an extensive amount of work on quantum error correction, practical demonstrations of error-corrected logical qubits are currently in their infancy. The algorithms studied in this dissertation are designed for quantum computers that have restricted capacity in the amount of qubits and fidelities of gates. This means that the circuits that can be realized are quite short: at the time of writing, the record for variational quantum algorithms is 25 layers of gates for 20 qubits \cite{rosenberg_experimental_2021}. 
+
+% Whether we will ever reach fault-tolerant quantum computation is still a debatable question, but even if we do, some developments of the NISQ era may remain relevant.
+
+\section{Tensor networks}
+
+The theory of quantum computation extensively uses the notion of tensor product, and thus greatly benefits from the diagrammatic language of \textit{tensor networks}. In fact, the diagrams of quantum circuits themselves can be thought of as tensor network diagrams. Detailed exposition of tensor networks for quantum physics and quantum information can be found in Refs.~\cite{biamonte_lectures_2020,bridgeman_hand-waving_2017,orus_practical_2014}.
+
+Let $V$ be the vector space of interest (most frequently we will deal with the qubit state space $\mathbb{C}^2$) and $V^*$ its dual space. In tensor network diagrams, we will draw a vector $v \in V$ as a triangle-shaped box with one wire sprouting to the left, while a covector $\delta \in V^*$ is depicted as a triangle-shaped box with one wire sprouting to the right:
 
 \begin{center}
     \includegraphics{figures/inkscape/path4585}
 \end{center}
 
-
-A $(p, q)$\textit{-tensor} is a linear function from $V^q$ to $V^p$. The space of such tensors $T^p_q (V)$ is isomorphic to $V^* \otimes ... \otimes V^* \otimes V \otimes ... \otimes V$ with $q$ copies of $V^*$ and $p$ copies of $V$. In tensor network diagrams, such a tensor is depicted as a box with $p$ wires going right and $q$ wires going left. As long as the endpoints are fixed, the shape of the wires does not matter.
-
-\begin{center}
-    \includegraphics{figures/inkscape/tensor_box}
-\end{center}
-
-For example, a linear map $A: V \rightarrow V$ is depicted as a box with one wire on each side. The box itself can be annotated as well:
-
+A $(p, q)$\textit{-tensor} is a linear function from $V^q$ to $V^p$. The space of such tensors $T^p_q (V)$ is isomorphic to $V^* \otimes ... \otimes V^* \otimes V \otimes ... \otimes V$ with $q$ copies of $V^*$ and $p$ copies of $V$. In tensor network diagrams, such a tensor is depicted as a box with $p$ wires going right and $q$ wires going left. For example, a linear map $A: V \rightarrow V$ is depicted as a box with one wire on each side. The box itself can be annotated as well:
 \begin{center}
     \includegraphics{figures/inkscape/box_a.png}
 \end{center}
-
 The tensor product of (arbitrary) tensors is depicted by drawing the two tensors one above the other:
-
 \begin{center}
     \includegraphics{figures/inkscape/tensor_product.png}
 \end{center}
-
-
-Since we work in $\mathbb{C}^d$ without any additional metric tensors, there are no extra tensors appearing when we raise or lower the indices of tensors. Pictorially, this means that we just bend the wires:
-
-\begin{center}
-    \includegraphics{figures/inkscape/bend_wires.png}
-\end{center}
-
-One must take care about the Hermitian conjugation operation (which is the combination of complex conjugation and transpose): we only denote it by explicitly marking tensors with the dagger sign ($\dagger$). The contraction of tensors is done by connecting the wires:
-
+The contraction of tensors is depicted by connecting the corresponding wires:
 \begin{center}
     \includegraphics{figures/inkscape/contraction.png}
 \end{center}
-
-In particular, taking the trace of a matrix amounts to closing its wires into a loop:
+As long as the wires connect the correct inputs and outputs, the curve depicting the contraction of indices can be completely arbitrary. For example, taking the trace of a matrix amounts to closing its wires into a loop:
 
 \begin{center}
     \includegraphics{figures/inkscape/trace.png}
 \end{center}
 
+An identity operator $\id: V \rightarrow V$ is depicted simply as a line segment:
+
+\begin{equation}
+    \id = -
+\end{equation}
+
+With a fixed choice of basis in $V$, there is an isomorphism of $V$ and $V^*$. This allows us to change the signatures of tensors. Diagrammatically this amounts to bending the wires. We start with the identity operator that belongs to $V \otimes V^*$. In the basis $\{ \ket{e_i} \}$ it can be decomposed as $\id = \sum \ket{e_i} \bra{e_i}$. When we map $V^*$ to $V$, we replace the basis bra vectors with corresponding basis ket vectors, ending up with a tensor $\sum \ket{e_i} \ket{e_i} \in V \otimes V$, that is proportional to a maximally entangled state. Graphically we show this as follows:
+
+$\ni$
+
+In a similar manner, the transpose of a matrix is depicted by bending the incoming and outgoing wires by 180 degrees:
+
+PICTURE A TRANSPOSE
+
+% EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+
+% topologically, imagine boxes as vertices of a graph, and wires as edges; we construct a graph by taking a collection of unit segments $\left[0, 1\right]$ and identifying some endpoints. No that's not enough: every box has some order of outgoing wires.
+
+
+% Since we work in $\mathbb{C}^d$ without any additional metric tensors, there are no extra tensors appearing when we raise or lower the indices of tensors. Pictorially, this means that we just bend the wires:
+
+% \begin{center}
+%     \includegraphics{figures/inkscape/bend_wires.png}
+% \end{center}
+
+One must take care about the Hermitian conjugation operation (which is the combination of complex conjugation and transpose): we only denote it by explicitly marking tensors with the dagger sign ($\dagger$). 
+
 It is also possible to consider linear functions over different vector spaces. For instance, when talking about mixed states, we can treat separately the internal degrees of freedom and the environment. In this case, one should just keep track of which wires belong to which space, either by subscripting them or by drawing them in different thickness, color, etc.
 
 The convention on the direction of wires is completely arbitrary. The direction we choose here aligns with the mathematical notation of matrix multiplication, where the order they act on a vector is right to left. Quantum circuits are typically written in the opposite direction, so that the quantum gates are to be read left to right (the only exception we are aware of is \cite{kitaev_classical_2002}).
+
+One of the most important things about tensor networks is that the diagrams can be arbitrarily deformed, and as long as the structure is preserved, the diagram will depict the same tensor. Formally tensor network diagrams are treated in Ref.~\cite{joyal_geometry_1991}. To prove the invariance of diagrams under deformations, the tensor network diagrams are treated as generalizations of graphs with certain additional structure.
+
+% Since the authors develop the diagrammatic lagnuage for many other situations beside Hilbert spaces and tensors on these, it includes features we will not cover here. In the simplest formalization of tensor networks, one uses so-called ``progressive polarized graphs'', which are directed graphs with certain additional structure:
+% \begin{enumerate}
+%     \item A set of nodes of degree one called outer nodes (the rest are called inner nodes);
+%     \item For every node $x$, the sets of incoming and outgoing edges $\operatorname{in}(x)$, $\operatorname{out}(x)$ are ordered;
+% \end{enumerate}
+% Two such graphs are considered isomorphic when they are isomorphic as graphs and the isomorphism preserves this extra structure. Finally, we associate a vector space with every edge and a linear map with every inner node. The domain and codomain of such linear maps are tensor products of spaces associated with $\operatorname{in}(x)$ and $\operatorname{out}(x)$. A graph together with this mapping is called a diagram. The article then shows that isomorphism of graphs implies that they define the same tensor.
+
+% Formally, the authors use the idea of a ``generalized graph'', which is different from an ordinary graph in the sense that edges are only required to be one-dimensional manifolds. This means that they do not have to be connected to vertices, being loose on one or two ends instead. In addition, such a generalized graph can have circles as edges. Then this generalized diagram is given extra structure. All edges are oriented, and for every vertex, its sets of incoming and outgoing edges are ordered.
+
+More generally, tensor diagrams can be used in different settings other than quantum theory. The key requirement is that the objects of interest and relations between them form a category in which the idea of tensor products makes sense. For example, Ref.~\cite{coecke_physics_2010} shows how tensor diagrams can be applied in topology, logic, and theory of computation.
 
 An interesting case of tensor networks are tensor network states, i.e.~quantum states that are best described as a contraction of certain tensors. For example, quantum circuits can be treated as such: wires are wires, and boxes are quantum gates. Suppose each qubit in a tensor network state is depicted by a distinct wire. Knowing the structure of the network, we can provide an upper bound to the amount of entanglement that will be found across any bipartition of the qubits. To do that, we split the network in two halves, so that each half only contains the outgoing wires of the respective partition of the qubit registry. There is no unique way to do this, and the bound will depend on the partition of the tensors. In any case, the halves will be connected by a number of wires. For the special case of quantum circuits we can assume that these are $w$ wires, each having the dimension equal to two. Schematically this situation in shown in Fig.~\ref{fig:cut}. If we now group the qubit spaces in bipartitions into two spaces, the tensor will essentially be a matrix with rank not exceeding $2^w$. The reduced density matrix of one of the halves is obtained from two copies of the tensor by contraction over a half of the open wires. The resulting tensor --- the density matrix --- also has the rank of $\leq 2^w$. It is then easy to see that the von Neumann entropy of this matrix is bound by $w$ ebits. Thus, the number of ebits in a bipartition is bounded by the number of cuts you need to make in order to split the tensor network diagram according to the bipartition.
 
@@ -316,6 +368,8 @@ An interesting case of tensor networks are tensor network states, i.e.~quantum s
     \caption{A quantum circuit can be treated as a tensor network state with all bonds having dimension 2. If a bipartition cuts $w$ wires, the total bond dimension is at most $2^w$, while the cut separates at most $w$ ebits of entanglement. Reprinted from \cite{uvarov_machine_2020}.}
     \label{fig:cut}
 \end{figure}
+
+We conclude this section by reviewing certain prominent classes of tensor network states. (MPS, PEPS, MERA)...
 
 \section{Complexity-theoretical aspects of quantum computation}
 
