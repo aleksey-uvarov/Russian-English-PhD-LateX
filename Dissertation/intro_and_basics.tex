@@ -228,7 +228,7 @@ In general, physically meaningful operations that can be performed on density ma
 \begin{definition}
     A quantum channel is a linear map $\Phi: \operatorname{End}(\mc{H}_1) \rightarrow \operatorname{End}(\mc{H}_2)$, where $\mc{H}_1$ and $\mc{H}_2$ are Hilbert spaces, such that:
     \begin{enumerate}
-        \item $\Phi$ is completely positive: if $\rho$ is positive semidefinite, then so is $\Phi(\rho)$
+        \item $\Phi$ is completely positive: if $\rho$ is positive semidefinite, then so is $\Phi(\rho)$;
         \item $\Phi$ is trace preserving: $\Tr(\rho) = \Tr(\Phi(\rho))$.
     \end{enumerate}
 \end{definition}
@@ -292,43 +292,57 @@ does not commute with the depolarizing channel acting on the first qubit.
 
 The theory of quantum computation extensively uses the notion of tensor product, and thus greatly benefits from the diagrammatic language of \textit{tensor networks}. In fact, the diagrams of quantum circuits themselves can be thought of as tensor network diagrams. Detailed exposition of tensor networks for quantum physics and quantum information can be found in Refs.~\cite{biamonte_lectures_2020,bridgeman_hand-waving_2017,orus_practical_2014}.
 
-Let $V$ be the vector space of interest (most frequently we will deal with the qubit state space $\mathbb{C}^2$) and $V^*$ its dual space. In tensor network diagrams, we will draw a vector $v \in V$ as a triangle-shaped box with one wire sprouting to the left, while a covector $\delta \in V^*$ is depicted as a triangle-shaped box with one wire sprouting to the right:
-
-\begin{center}
-    \includegraphics{figures/inkscape/path4585}
-\end{center}
-
-A $(p, q)$\textit{-tensor} is a linear function from $V^q$ to $V^p$. The space of such tensors $T^p_q (V)$ is isomorphic to $V^* \otimes ... \otimes V^* \otimes V \otimes ... \otimes V$ with $q$ copies of $V^*$ and $p$ copies of $V$. In tensor network diagrams, such a tensor is depicted as a box with $p$ wires going right and $q$ wires going left. For example, a linear map $A: V \rightarrow V$ is depicted as a box with one wire on each side. The box itself can be annotated as well:
-\begin{center}
-    \includegraphics{figures/inkscape/box_a.png}
-\end{center}
-The tensor product of (arbitrary) tensors is depicted by drawing the two tensors one above the other:
-\begin{center}
-    \includegraphics{figures/inkscape/tensor_product.png}
-\end{center}
-The contraction of tensors is depicted by connecting the corresponding wires:
-\begin{center}
-    \includegraphics{figures/inkscape/contraction.png}
-\end{center}
-As long as the wires connect the correct inputs and outputs, the curve depicting the contraction of indices can be completely arbitrary. For example, taking the trace of a matrix amounts to closing its wires into a loop:
-
-\begin{center}
-    \includegraphics{figures/inkscape/trace.png}
-\end{center}
-
-An identity operator $\id: V \rightarrow V$ is depicted simply as a line segment:
+Let $V$ be the vector space of interest (most frequently we will deal with the qubit state space $\mathbb{C}^2$) and $V^*$ its dual space. A $(p, q)$\textit{-tensor} is a linear function from $V^q$ to $V^p$. The space of such tensors $T^p_q (V)$ is isomorphic to $V^* \otimes ... \otimes V^* \otimes V \otimes ... \otimes V$ with $q$ copies of $V^*$ and $p$ copies of $V$. In tensor network diagrams, such a tensor is depicted as a box with $p$ wires going right and $q$ wires going left.
 
 \begin{equation}
-    \id = -
+    M^{i_1 ... i_p}_{j_1 ... j_q} = \vcenter{\hbox{\includegraphics{figures/inkscape/tensor}}}
+\end{equation}
+For example, a linear map $A: V \rightarrow V$ is depicted as a box with one wire on each side. The box itself can be annotated as well:
+\begin{equation}
+    A^i_j = \vcenter{\hbox{\includegraphics{figures/inkscape/box_a}}}
+\end{equation}
+We will draw a vector $v \in V$ as a triangle-shaped box with one wire sprouting to the left, while a covector $\delta \in V^*$ is depicted as a triangle-shaped box with one wire sprouting to the right. A projector $\ket{\psi} \bra{\psi}$ can then be depicted as follows:
+\begin{equation}
+    \ket{\psi} \bra{\psi} = \vcenter{\hbox{\includegraphics{figures/inkscape/path4585}}}
 \end{equation}
 
-With a fixed choice of basis in $V$, there is an isomorphism of $V$ and $V^*$. This allows us to change the signatures of tensors. Diagrammatically this amounts to bending the wires. We start with the identity operator that belongs to $V \otimes V^*$. In the basis $\{ \ket{e_i} \}$ it can be decomposed as $\id = \sum \ket{e_i} \bra{e_i}$. When we map $V^*$ to $V$, we replace the basis bra vectors with corresponding basis ket vectors, ending up with a tensor $\sum \ket{e_i} \ket{e_i} \in V \otimes V$, that is proportional to a maximally entangled state. Graphically we show this as follows:
+The tensor product of (arbitrary) tensors is depicted by drawing the two tensors one above the other:
+\begin{equation}
+    A \otimes B = \vcenter{\hbox{\includegraphics{figures/inkscape/tensor_product}}}
+\end{equation}
+The contraction of tensors is depicted by connecting the corresponding wires:
+\begin{equation}
+    A \ket{v} = \vcenter{\hbox{\includegraphics{figures/inkscape/a_times_v}}}
+\end{equation}
+As long as the wires connect the correct inputs and outputs, the curves depicting the contractions of indices can be completely arbitrary. For example, taking the trace of a matrix requires connecting its input and output indices, which implies that we need to curve the wire into a loop (note that $\Tr A$ is a scalar, so the tensor network diagram has no loose wires):
+\begin{equation}
+    \Tr A = \vcenter{\hbox{\includegraphics{figures/inkscape/trace}}}
+\end{equation}
+An identity operator $\id: V \rightarrow V$ is depicted simply as a line segment:
+\begin{equation}
+    \id = \vcenter{\hbox{\includegraphics{figures/inkscape/line}}}
+\end{equation}
+If we bend this line segment one way or another, we can get a $(2, 0)$ or a $(0, 2)$ tensor. This corresponds to a tensor proportional to the maximally entangled state in $V \otimes V$ or its dual:
+\begin{align}
+    \sum_i \ket{e_i} \ket{e_i} &= \vcenter{\hbox{\includegraphics{figures/inkscape/bell}}} \\
+    \sum_i \bra{e_i} \bra{e_i} &= \vcenter{\hbox{\includegraphics[angle=180]{figures/inkscape/bell}}}
+\end{align}
+Importantly, the when these diagrams occur on their own, they become basis dependent. Similarly, the transpose of a matrix is performed by turning both its wires in the opposite direction:
+\begin{equation}
+    A^T = \vcenter{\hbox{\includegraphics{figures/inkscape/transpose}}}
+\end{equation}
 
-$\ni$
+% With a fixed choice of basis in $V$, there is an isomorphism of $V$ and $V^*$. 
 
-In a similar manner, the transpose of a matrix is depicted by bending the incoming and outgoing wires by 180 degrees:
 
-PICTURE A TRANSPOSE
+
+% This allows us to change the signatures of tensors. Diagrammatically this amounts to bending the wires. We start with the identity operator that belongs to $V \otimes V^*$. In the basis $\{ \ket{e_i} \}$ it can be decomposed as $\id = \sum \ket{e_i} \bra{e_i}$. When we map $V^*$ to $V$, we replace the basis bra vectors with corresponding basis ket vectors, ending up with a tensor $\sum \ket{e_i} \ket{e_i} \in V \otimes V$, that is proportional to a maximally entangled state. Graphically we show this as follows:
+
+% $\ni$
+
+% In a similar manner, the transpose of a matrix is depicted by bending the incoming and outgoing wires by 180 degrees:
+
+% PICTURE A TRANSPOSE
 
 % EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 
@@ -341,13 +355,13 @@ PICTURE A TRANSPOSE
 %     \includegraphics{figures/inkscape/bend_wires.png}
 % \end{center}
 
-One must take care about the Hermitian conjugation operation (which is the combination of complex conjugation and transpose): we only denote it by explicitly marking tensors with the dagger sign ($\dagger$). 
+One must take care of the Hermitian conjugation operation (which is the combination of complex conjugation and transpose): we only denote it by explicitly marking tensors with the dagger sign ($\dagger$). 
 
 It is also possible to consider linear functions over different vector spaces. For instance, when talking about mixed states, we can treat separately the internal degrees of freedom and the environment. In this case, one should just keep track of which wires belong to which space, either by subscripting them or by drawing them in different thickness, color, etc.
 
 The convention on the direction of wires is completely arbitrary. The direction we choose here aligns with the mathematical notation of matrix multiplication, where the order they act on a vector is right to left. Quantum circuits are typically written in the opposite direction, so that the quantum gates are to be read left to right (the only exception we are aware of is \cite{kitaev_classical_2002}).
 
-One of the most important things about tensor networks is that the diagrams can be arbitrarily deformed, and as long as the structure is preserved, the diagram will depict the same tensor. Formally tensor network diagrams are treated in Ref.~\cite{joyal_geometry_1991}. To prove the invariance of diagrams under deformations, the tensor network diagrams are treated as generalizations of graphs with certain additional structure.
+One of the most important things about tensor networks is that the diagrams can be arbitrarily deformed, and as long as the structure is preserved, the diagram will depict the same tensor. Formally tensor network diagrams are treated in Ref.~\cite{joyal_geometry_1991}. To prove the invariance of diagrams under deformations, the tensor network diagrams are treated as generalizations of graphs with certain additional structure (some nodes are marked as outer nodes, incoming and outgoing edges for each node are ordered, etc.).
 
 % Since the authors develop the diagrammatic lagnuage for many other situations beside Hilbert spaces and tensors on these, it includes features we will not cover here. In the simplest formalization of tensor networks, one uses so-called ``progressive polarized graphs'', which are directed graphs with certain additional structure:
 % \begin{enumerate}
@@ -368,8 +382,6 @@ An interesting case of tensor networks are tensor network states, i.e.~quantum s
     \caption{A quantum circuit can be treated as a tensor network state with all bonds having dimension 2. If a bipartition cuts $w$ wires, the total bond dimension is at most $2^w$, while the cut separates at most $w$ ebits of entanglement. Reprinted from \cite{uvarov_machine_2020}.}
     \label{fig:cut}
 \end{figure}
-
-We conclude this section by reviewing certain prominent classes of tensor network states. (MPS, PEPS, MERA)...
 
 \section{Complexity-theoretical aspects of quantum computation}
 
