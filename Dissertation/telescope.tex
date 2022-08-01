@@ -175,7 +175,9 @@ Evaluating this energy requires two series of measurements: in the $Z$ basis and
 
 \section{Numerical experiments}
 
-It is interesting to compare the scaling of errors for different fidelity estimation techniques, e.g.~as a function of the number of shots and of the number of qubits. There is a certain difficulty with that: the results also heavily depend on the noise model. In the following, we adopt perhaps the simplest noise model. We assume that every single-qubit (two-qubit) gate is followed by a single-qubit (two-qubit) depolarizing noise channel with depolarization probability $p_1$ ($p_2$).
+\subsection{Local depolarizing errors}
+
+It is interesting to compare the scaling of errors for different fidelity estimation techniques, e.g.~as a function of the number of shots and of the number of qubits. There is a certain difficulty with that: the results also heavily depend on the noise model. In the following, we adopt a simple noise model. We assume that every single-qubit (two-qubit) gate is followed by a single-qubit (two-qubit) depolarizing noise channel with depolarization probability $p_1$ ($p_2$).
 
 In discussion of errors, we need to stress that we can estimate random errors, but not necessarily systematic errors. For example, the parity oscillation method requires us to measure qubits in the $X$ basis, but this means applying an extra Hadamard gate to every qubit before measurement. As a result, in the depolarizing noise model, this leads to a systematic underestimation of coherence. Random errors are, on the other hand, analyzable using the measurement statistics as usual.
 
@@ -208,6 +210,34 @@ Finally, Figure \ref{fig:errors_as_nshots} shows the dependence of random errors
     \label{fig:errors_as_nshots}
 \end{figure}
 
+\subsection{Global depolarizing error}
+
+We analyzed the behavior of all three methods for the following family of states:
+\begin{equation}
+    \label{eq:partially_mixed}
+    \rho(\alpha) = (1-\alpha) \ket{\Phi} \bra{\Phi} + \frac{\alpha}{2^n} \id.
+\end{equation}
+Here $\ket{\Phi}$ is the GHZ state. For that density matrix, we can exactly calculate the fidelity and the bounds provided by the telescope construction. The fidelity with the clean GHZ state is equal to 
+\begin{equation}
+    F = \bra{\Phi} \rho \ket{\Phi} = 1 - \alpha + \frac{\alpha}{2^n}.
+\end{equation}
+The energy of this state with respect to the telescope Hamiltonian is equal to $\frac{\alpha}{2^n} \Tr H = n \alpha$. Hence, the fidelity bounds provided by Proposition~\ref{prop:stability} are as follows:
+\begin{equation}
+    1 - \frac{n \alpha}{2} \leq F \leq 1 - \frac{\alpha}{2}.
+\end{equation}
+The lower bound deteriorates with the increase of $n$, becoming completely uninfomative at $\alpha = 2/n$. The upper bound, on the other hand, does not depend on $n$.
+
+All three methods were tested numerically for determining the fidelity of $\rho$. In case of parity oscillations and multiple quantum coherences techniques, the simulation is somewhat artifical. The matter is that both of these techniques are substantially affected by measurement errors, which are not accounted for in this model. Instead, the methods receive the state $\rho$, then perform all necessary actions with perfect fidelity.
+
+For every tested value of $\alpha$, 1000 measurements were allocated for measuring coherence (or, for the telescope, the expected value of $X^{\otimes n}$), and 1000 measurements were allocated for measuring population (respectively, the expectations of $Z_i Z_{i+1}$). For coherence measurements, the values of $\varphi$ were equal to $\frac{2 \pi j}{2 n + 2}$, $j \in \{0, 1, ..., 2n+1\}$.
+Figure~\ref{fig:fidelity_depo} shows the results of the simulations. The experiments were performed for $n=10$ qubits. As expected from the analytical formulas, the bounds provided by the telescope construction are quite loose in this case, while the parity oscillations technique ends up being much closer to the correct value. Interestingly enough, the multiple quantum coherences method in this case consistently overestimates the fidelity: we repeated the same experiment multiple times and obtaied qualitatively the same picture.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/depolarizing_fidelities_nq_10_shz_1000_shx_1000_amax_1}
+    \caption{Fidelity estimates for mixed states of the form~(\ref{eq:partially_mixed}).}
+    \label{fig:fidelity_depo}
+\end{figure}
 
 \section{Discussion}
 
