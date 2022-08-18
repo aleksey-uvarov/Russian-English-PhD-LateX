@@ -115,7 +115,11 @@ What operations can be performed on idealized qubits? The basic building blocks 
 
 \subsubsection{Quantum gates}
 
-Quantum gates are represented by unitary matrices $UU^\dagger = \id$. We say that a quantum gate $U$ is an $m$-qubit gate if the gate is supported only on $m$ qubits. That is, there is a subset of $m$ qubits such that, under proper ordering of the tensor factors, $U$ can be represented as $V \otimes \id$ for some $V \in U(2^m)$.
+Quantum gates are represented by unitary matrices:
+\begin{equation}
+    \mc{U}(d) : = \{ U \in \mathbb{C}^{d \times d} | UU^\dagger = \id \}.
+\end{equation}
+We say that a quantum gate $U$ is an $m$-qubit gate if the gate is supported only on $m$ qubits. That is, there is a subset of $m$ qubits such that, under proper ordering of the tensor factors, $U$ can be represented as $V \otimes \id$ for some $V \in \mc{U}(2^m)$.
 
 A quantum computer is assumed to be able to produce few-qubit quantum gates from some fixed set. A sequence of quantum gates, together with measurements (see next paragraph) and possibly gates conditioned on classical measurements, is called a \textit{quantum circuit}. 
 

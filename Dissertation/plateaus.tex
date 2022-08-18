@@ -5,11 +5,11 @@ In this chapter, we discuss the phenomenon of barren plateaus in VQAs. As the na
 
 \section{Integration with respect to the Haar measure}
 
-A typical ansatz quantum circuit is a large and complicated structure which is difficult to analyze. One way to study its properties is to analyze its average behavior with respect to sampling a random point in the parameter space. Such a sampling defines a probability measure on the unitary group $U(d)$\footnote{To specify the probability measure, you need the space of elementary outcomes $\Omega$ -- in our case, the group $U(d)$ -- and a certain algebra of its subsets called the Borel $\sigma$-algebra $\mathrm{Borel} (\Omega)$. A probability measure $P$ then has to map the subsets from $\mathrm{Borel} (\Omega)$ to $[0, 1]$ in a way that is (i) countably additive (ii) zero on the empty set and (iii) normalized: $P(\Omega) = 1$.}. 
-It turns out that for many purposes this probability measure can be approximated by the probability measure on $U(d)$ called the Haar measure.
+A typical ansatz quantum circuit is a large and complicated structure which is difficult to analyze. One way to study its properties is to analyze its average behavior with respect to sampling a random point in the parameter space. Such a sampling defines a probability measure on the unitary group $\mc{U}(d)$\footnote{To specify the probability measure, you need the space of elementary outcomes $\Omega$ -- in our case, the group $\mc{U}(d)$ -- and a certain algebra of its subsets called the Borel $\sigma$-algebra $\mathrm{Borel} (\Omega)$. A probability measure $P$ then has to map the subsets from $\mathrm{Borel} (\Omega)$ to $[0, 1]$ in a way that is (i) countably additive (ii) zero on the empty set and (iii) normalized: $P(\Omega) = 1$.}. 
+It turns out that for many purposes this probability measure can be approximated by the probability measure on $\mc{U}(d)$ called the Haar measure.
 
 \begin{definition}
-    The \textit{Haar measure} $\mu: \mathrm{Borel} (U(d)) \rightarrow [0, 1]$ on the unitary group $U(d)$ is the unique left- and right-invariant probability measure on that group. That is, let $V \in U(d)$ and let $\mathcal{A} \in \mathrm{Borel} (U(d))$. Then $\mu(\mathcal{A}) = \mu(V \mathcal{A}) = \mu(\mathcal{A} V)$.
+    The \textit{Haar measure} $\mu: \mathrm{Borel} (\mc{U}(d)) \rightarrow [0, 1]$ on the unitary group $\mc{U}(d)$ is the unique left- and right-invariant probability measure on that group. That is, let $V \in \mc{U}(d)$ and let $\mathcal{A} \in \mathrm{Borel} (\mc{U}(d))$. Then $\mu(\mathcal{A}) = \mu(V \mathcal{A}) = \mu(\mathcal{A} V)$.
 \end{definition}
 
 The proof that such measure is unique can be found e.g.~in \cite{watrous_theory_2018}.
@@ -90,7 +90,7 @@ A tensor network diagram for this value is this:
     \ \mathrm{d} \mu.
 \end{equation}
 
-The translation invariance of the Haar measure is the feature that enables us to calculate these integrals \cite{samuel_u_1980,collins_integration_2006}. Indeed, from the (left and right) translation invariance it follows that for any $V \in U(d)$, we have that 
+The translation invariance of the Haar measure is the feature that enables us to calculate these integrals \cite{samuel_u_1980,collins_integration_2006}. Indeed, from the (left and right) translation invariance it follows that for any $V \in \mc{U}(d)$, we have that 
 \begin{align}
     \label{eq:haar_translation}
     (V^{\otimes t} \otimes \id^{\otimes t}) \mathcal{I}_t
@@ -152,7 +152,7 @@ Now if we want to integrate $(U^\dagger \otimes U^\dagger) (A \otimes B) (U \oti
 
 The coefficients $c_{\sigma_A \sigma_B}$ here are no longer easy to calculate: the same trick as for $t=1$ will yield a complicated system of quadratic equations. One trick is to consider the shifts by unitaries of the type $\exp(\rmi \epsilon X)$ and take the derivative w.r.t.~$\epsilon$. This method, along with the graphical calculus, yields the result for $t=2$ \cite{poland_no_2020}.
 
-The solution for arbitrary $t$ can be found using the representation theory of $S_n$ and $U(d)$. Collins and \'Sniady \cite{collins_integration_2006} show that $c_{\sigma_A \sigma_B}$ are calculated using so-called Weingarten functions that depend on the characters of $\sigma_A \sigma^{-1}_B$ in different representations, and therefore only on its conjugacy class:
+The solution for arbitrary $t$ can be found using the representation theory of $S_n$ and $\mc{U}(d)$. Collins and \'Sniady \cite{collins_integration_2006} show that $c_{\sigma_A \sigma_B}$ are calculated using so-called Weingarten functions that depend on the characters of $\sigma_A \sigma^{-1}_B$ in different representations, and therefore only on its conjugacy class:
 \begin{equation}
     c_{\sigma_A \sigma_B} = \operatorname{Wg} (\sigma_A \sigma^{-1}_B) = \frac{1}{t!^2} \sum_{\lambda \vdash t} \frac{\chi_\lambda(e)}{s_{\lambda, d} (1, ..., 1)}\chi_\lambda (\sigma_A \sigma^{-1}_B).
 \end{equation}
@@ -174,13 +174,13 @@ Here $\mc{S}$ denotes a swap of two tensor components: $\mc{S} (v \otimes w) = w
 \section{Unitary \emph{t}-designs}
 %hyperref is not happy about math mode in headers
 
-Random parametrized quantum circuits, such as the ones used in VQE, are known to approximate the entire group of unitary operators $U(2^n)$ in the following sense. When circuit is constructed gates randomly picked from a universal set of gates (meaning that it generates $U^{(2^n)}$), the distribution of the circuit approaches the Haar measure on the unitary group \cite{emerson_convergence_2005}. Because of this, in analyzing the behavior of circuits, one might be tempted to approximate them with random unitary operators. However, it is also known that sampling from the unitary group requires exponentially long circuits.
+Random parametrized quantum circuits, such as the ones used in VQE, are known to approximate the entire group of unitary operators $\mc{U}(2^n)$ in the following sense. When circuit is constructed gates randomly picked from a universal set of gates (meaning that it generates $\mc{U}(2^n)$), the distribution of the circuit approaches the Haar measure on the unitary group \cite{emerson_convergence_2005}. Because of this, in analyzing the behavior of circuits, one might be tempted to approximate them with random unitary operators. However, it is also known that sampling from the unitary group requires exponentially long circuits.
 
 Still, there are distributions on the unitary group such that samples from such distributions are similar to those obtained from the Haar measure in the following sense.
 
 \begin{definition}
-    A probability distribution $\nu$ on the unitary group $U(2^n)$ is a  \textit{unitary} $t$\textit{-design}
-    if the expected value of any polynomial of power $t$ in the matrix elements of $U$ and $U^*$ with respect to $\nu$ is the same as that w.r.t.~the Haar measure on $U(2^n)$.  
+    A probability distribution $\nu$ on the unitary group $\mc{U}(2^n)$ is a  \textit{unitary} $t$\textit{-design}
+    if the expected value of any polynomial of power $t$ in the matrix elements of $U$ and $U^*$ with respect to $\nu$ is the same as that w.r.t.~the Haar measure on $\mc{U}(2^n)$.  
 \end{definition}
 If a unitary ensemble is a $t$-design, then it is obviously also a $(t-1)$-design. There are a few simple examples of $t$-designs:
 \begin{enumerate}
@@ -202,7 +202,7 @@ Another approximation still is to consider so-called \textit{approximate $t$-des
     There is a reason why the definition of TPE uses the letter $\lambda$. When the expected value $\mathbb{E}_\nu$ is treated as a quantum channel on $\mathbb{C}_d^{\otimes t}$ (in the sense of conjugating by random $U$), the number $\lambda$ provides an upper bound to its second eigenvalue. This also implies that if $\lambda < 1$, then composing $m$ copies of $\mathbb{E}_\nu$ will yield a $\lambda^m$-approximate TPE.
 \end{remark}
 
-Approximate $t$-designs are easier to come by than exact ones. In fact, if one constructs a quantum circuit out of Haar-random two-qubit gates, it will be an $\epsilon$-approximate $t$-design if it has a number of gates that scales polylogarithmically with $1/\epsilon$ and $t$ \cite{brandao_local_2016}. For qubits with connectivity arranged in a $D$-dimensional lattice, an approximate $t$-design appears for depth $poly(t) \cdot n^{1/D}$ \cite{harrow_approximate_2018}.
+Approximate $t$-designs are easier to come by than exact ones. In fact, if one constructs a quantum circuit out of Haar-random two-qubit gates, it will be an $\epsilon$-approximate $t$-design if it has a number of gates that scales polylogarithmically with $1/\epsilon$ and $t$ \cite{brandao_local_2016}. For qubits with connectivity arranged in a $D$-dimensional lattice, an approximate $t$-design appears for depth $\operatorname{poly}(t) \cdot n^{1/D}$ \cite{harrow_approximate_2018}.
 
 \section{Barren plateaus}
 
@@ -346,7 +346,7 @@ For example, Figure \ref{fig:causal_cone} depicts a checkerboard ansatz \cite{uv
         (U \otimes U),
     \end{aligned}{}
     \end{equation}{}
-    where $\mu_{\mc{Y}}$ is a Haar distribution of unitaries acting nontrivially on $\mc{Y}$ and trivially on all other qubits.
+    where $\mu_{\mc{Y}}$ is the Haar distribution of unitaries acting nontrivially on $\mc{Y}$ and trivially on all other qubits.
     
 \end{definition}
 
@@ -873,7 +873,7 @@ With a similar numerical experiment for $t=1$, we found that all blocks, except 
 To estimate gradients, we used the following analytical procedure \cite{mitarai_quantum_2018,schuld_evaluating_2019}: let $f(\theta)$ be the cost function, and $\theta$ a parameter which is included in the quantum circuit in a gate like $\exp(\rmi F\theta / 2)$ for some Pauli operator $F$. Then the derivative w.r.t.\ this parameter is equal to $(f(\theta + \pi /2) - f(\theta - \pi / 2))/2$. The simulations assume noise-free conditions and use the statevector simulator provided by Qiskit~\cite{aleksandrowicz_qiskit:_2019}.
 
 The first Hamiltonian we tested our predictions on is the single-qubit Hamiltonian $H = X_5$ acting on $n=10$ qubits. The qubits are enumerated starting from zero. 
-For $N = 400$ samples, the derivative with respect to each parameter was evaluated, then the variances were averaged over each block. We performed two numerical experiments with different two-qubit blocks from Table \ref{tab:local_designs}: one with blocks of $X$, $Z$, and $ZZ$ rotations, and the other with blocks implemented according to the Cartan decomposition of $SU(4)$. The ansatz used was the checkerboard ansatz with ring connectivity. The result of the numerical test is shown in Fig.~\ref{fig:one-local}. 
+For $N = 400$ samples, the derivative with respect to each parameter was evaluated, then the variances were averaged over each block. We performed two numerical experiments with different two-qubit blocks from Table \ref{tab:local_designs}: one with blocks of $X$, $Z$, and $ZZ$ rotations, and the other with blocks implemented according to the Cartan decomposition of $\mc{SU}(4)$. The ansatz used was the checkerboard ansatz with ring connectivity. The result of the numerical test is shown in Fig.~\ref{fig:one-local}. 
 
 \begin{figure}
     \centering
