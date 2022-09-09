@@ -798,7 +798,7 @@ We will denote the aforementioned $p$-norms as $\lambda_1$, $\lambda_2$ and $\la
         \hline
         $X$, $Z$, and $ZZ$ rotations &  
         % \mbox{
-            $\Qcircuit @C=1.0em @R=1.0em {
+            $\Qcircuit @C=0.65em @R=0.65em {
                    \quad & \gate{R_Z} & \multigate{1}{R_{ZZ}} & \gate{R_X} & \qw \\
                    \quad & \gate{R_Z} & \ghost{R_{ZZ}} & \gate{R_X} & \qw \\
                }$
@@ -806,14 +806,14 @@ We will denote the aforementioned $p$-norms as $\lambda_1$, $\lambda_2$ and $\la
         & 0.95 & 1.80 & 0.87\\
         \hline 
         Universal gates and a CNOT &
-            $\Qcircuit @C=0.8em @R=0.8em {
+            $\Qcircuit @C=0.65em @R=0.65em {
            \quad & \gate{U_3} & \ctrl{1} & \gate{U_3} & \qw \\
            \quad & \gate{U_3} & \targ & \gate{U_3} & \qw \\
             }$
         & 0.68 & 0.69 & 0.42\\
         \hline
         $Y$ rotations and a CZ~\cite{cerezo_cost-function-dependent_2020} &            
-            $\Qcircuit @C=0.8em @R=0.8em {
+            $\Qcircuit @C=0.65em @R=0.65em {
            \quad & \gate{R_Y} & \ctrl{1} & \gate{R_Y} & \qw \\
            \quad & \gate{R_Y} & \ctrl{-1} & \gate{R_Y} & \qw \\
             }$ & 1.76 & 1.76 & 1.00\\
@@ -830,7 +830,7 @@ We will denote the aforementioned $p$-norms as $\lambda_1$, $\lambda_2$ and $\la
         & 2.40 & 2.40 & 1.00\\
         \hline
         Cartan decomposition \cite{khaneja_cartan_2000,khaneja_time_2001} &
-        $\Qcircuit @C=0.8em @R=0.8em {
+        $\Qcircuit @C=0.65em @R=0.65em {
        \quad & \gate{U_3} & \multigate{1}{R_{XX}} & \multigate{1}{R_{YY}} & \multigate{1}{R_{ZZ}}& \gate{U_3} & \qw \\
        \quad & \gate{U_3} & \ghost{R_{XX}} & \ghost{R_{YY}} & \ghost{R_{ZZ}} & \gate{U_3} & \qw \\
         }$
