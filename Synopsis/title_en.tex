@@ -2,8 +2,8 @@
 
 \noindent%
 \begin{tabularx}{\textwidth}{@{}lXr@{}}%
-    & & \large{As a manuscript}\\
-    \IfFileExists{images/logo.pdf}{\includegraphics[height=0.5cm]{logo}}{\rule[0pt]{0pt}{2.5cm}}  & &
+    & & \textit{\textbf{As a manuscript}}\\
+    % \IfFileExists{images/logo.pdf}{\includegraphics[height=0.5cm]{logo}}{\rule[0pt]{0pt}{2.5cm}}  & &
     \ifnumequal{\value{showperssign}}{0}{%
         \rule[0pt]{0pt}{1.5cm}
     }{
@@ -11,37 +11,40 @@
     }\\
 \end{tabularx}
 
-\vspace{0pt plus1fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
+\vspace{0pt plus9fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
 \begin{center}
 \textbf {\large \thesisAuthorEn}
-\end{center}
+% \end{center}
 
-\vspace{0pt plus3fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
-\begin{center}
-\textbf {\Large %\MakeUppercase
+\vspace{0pt plus1fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
+% \begin{center}
+\textbf {\large %\MakeUppercase
 \thesisTitleEn}
 
-\vspace{0pt plus3fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
-{\large Speciality \thesisSpecialtyNumber\ ---\par <<\thesisSpecialtyTitleEn>>}
+\vspace{0pt plus1fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
+{\large \textbf{Speciality: \thesisSpecialtyNumber.~\thesisSpecialtyTitleEn}}
 
 \ifdefined\thesisSpecialtyTwoNumberEn
 {\large Speciality \thesisSpecialtyTwoNumberEn\ "---\par <<\thesisSpecialtyTwoTitleEn>>}
 \fi
 
-\vspace{0pt plus1.5fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
-\Large{Synopsis}\par
-\large{of the dissertation for the degree of \par \thesisDegreeEn}
+\vspace{0pt plus3fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
+\textbf{\large{ABSTRACT}}
+
+\vspace{0pt plus2fill}
+
+\large{\textbf{of the dissertation for the Degree of} \par \textbf{\thesisDegreeEn}}
 \end{center}
 
-\vspace{0pt plus4fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
-{\centering\thesisCityEn~--- \thesisYear\par}
+\vspace{0pt plus13fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
+{\centering\textbf{\thesisCityEn~--- \thesisYear}\par}
 
 \newpage
 % оборотная сторона обложки
 \thispagestyle{empty}
-\noindent The dissertation was completed at the {\thesisOrganizationEn}.
+The dissertation was prepared at the {\thesisOrganizationEn}.
 
-\vspace{0.008\paperheight plus1fill}
+\vspace{0.008\paperheight plus3fill}
 \noindent%
 \begin{tabularx}{\textwidth}{@{}lX@{}}
     \ifdefined\supervisorTwoFio
@@ -61,71 +64,70 @@
                               \fi
                               \vspace{0.013\paperheight}\\
     \else
-    Scientific advisor:   & \supervisorRegaliaEn\par
-                              \ifdefined\supervisorDead
+    \textbf{Scientific supervisor:}   & \ifdefined\supervisorDead
                               \framebox{\textbf{\supervisorFioEn}}
                               \else
-                              \textbf{\supervisorFioEn}
+                              \textbf{\supervisorFioEn  --- \supervisorRegaliaEn}
                               \fi
                               \vspace{0.013\paperheight}\\
     \fi
-    Official opponents:  &
-    \ifnumequal{\value{showopplead}}{0}{\vspace{13\onelineskip plus1fill}}{%
-        \textbf{\opponentOneFioEn,}\par
-        \opponentOneRegaliaEn,\par
-        \opponentOneJobPlaceEn,\par
-        \opponentOneJobPostEn\par
-        \vspace{0.01\paperheight}
-        \textbf{\opponentTwoFioEn,}\par
-        \opponentTwoRegaliaEn,\par
-        \opponentTwoJobPlaceEn,\par
-        \opponentTwoJobPostEn
-    \ifdefined\opponentThreeFio
-        \par
-        \vspace{0.01\paperheight}
-        \textbf{\opponentThreeFio,}\par
-        \opponentThreeRegalia,\par
-        \opponentThreeJobPlace,\par
-        \opponentThreeJobPost
-    \fi
-    }%
-    \vspace{0.013\paperheight} \\
+    % Official opponents:  &
+    % \ifnumequal{\value{showopplead}}{0}{\vspace{13\onelineskip plus1fill}}{%
+    %     \textbf{\opponentOneFioEn,}\par
+    %     \opponentOneRegaliaEn,\par
+    %     \opponentOneJobPlaceEn,\par
+    %     \opponentOneJobPostEn\par
+    %     \vspace{0.01\paperheight}
+    %     \textbf{\opponentTwoFioEn,}\par
+    %     \opponentTwoRegaliaEn,\par
+    %     \opponentTwoJobPlaceEn,\par
+    %     \opponentTwoJobPostEn
+    % \ifdefined\opponentThreeFio
+    %     \par
+    %     \vspace{0.01\paperheight}
+    %     \textbf{\opponentThreeFio,}\par
+    %     \opponentThreeRegalia,\par
+    %     \opponentThreeJobPlace,\par
+    %     \opponentThreeJobPost
+    % \fi
+    % }%
+    % \vspace{0.013\paperheight} \\
     \ifdefined\leadingOrganizationTitleEn
-    Leading organization:    &
+    \textbf{Leading organization:}    &
     \ifnumequal{\value{showopplead}}{0}{\vspace{6\onelineskip plus1fill}}{%
-        \leadingOrganizationTitleEn
+        \textbf{\leadingOrganizationTitleEn}
     }%
     \fi
 \end{tabularx}
-\vspace{0.008\paperheight plus1fill}
+\vspace{0.008\paperheight plus3fill}
 
-\noindent The defense will take place on \defenseDateEn~at~the~meeting of the dissertation council \defenseCouncilNumberEn~in \defenseCouncilTitleEn, located at \defenseCouncilAddressEn.
+The defense will take place on \underline{\textbf{\defenseDateEn}}~at~the~meeting of the Dissertation Council \textbf{\defenseCouncilNumber}, based at Moscow Institute of Physics and Technology (MIPT, Phystech) 
 
-\vspace{0.008\paperheight plus1fill}
-\noindent The dissertation can be found in the \synopsisLibraryEn.
-
-\vspace{0.008\paperheight plus1fill}
-\noindent Reviews of the synopsis should be sent in two copies, stamped by the organization, to \defenseCouncilAddressEn, to the secretary of the dissertation council~\defenseCouncilNumberEn.
+\textbf{address:} \defenseCouncilAddressEn.
 
 \vspace{0.008\paperheight plus1fill}
-\noindent{The synopsis has been circulated on \synopsisDateEn.}
+The dissertation can be found in the \synopsisLibraryEn.
+
+% \vspace{0.008\paperheight plus1fill}
+% \noindent Reviews of the synopsis should be sent in two copies, stamped by the organization, to \defenseCouncilAddressEn, to the secretary of the dissertation council~\defenseCouncilNumberEn.
+
+\vspace{0.008\paperheight plus3fill}
+{The abstract was sent on \synopsisDateEn.}
 
 
-\vspace{0.008\paperheight plus1fill}
+\vspace{0.008\paperheight plus9fill}
 \noindent%
 \begin{tabularx}{\textwidth}{@{}%
->{\raggedright\arraybackslash}b{18em}@{}
+>{\raggedright\arraybackslash}b{14em}@{}
 >{\centering\arraybackslash}X
 r
 @{}}
-    Scientific secretary\par
-    Dissertation council\par
-    \defenseCouncilNumberEn,\par
-    \defenseSecretaryRegaliaEn
+    \small{\textbf{Scientific secretary}} \par \textbf{\small{of the 
+    Dissertation council}}
     &
     \ifnumequal{\value{showsecrsign}}{0}{}{%
         \includegraphics[width=2cm]{secretary-signature.png}%
     }%
     &
-    \defenseSecretaryFioEn
+    \textbf{\small{\defenseSecretaryFioEn}}
 \end{tabularx}
