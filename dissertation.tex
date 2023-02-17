@@ -65,8 +65,8 @@
 
 
 %%% Структура диссертации (ГОСТ Р 7.0.11-2011, 4)
-\ifnumequal{\value{englishthesis}}{1}{\include{Dissertation/title_en}}{}   % En titlepage
 \include{Dissertation/title}           % Титульный лист
+\ifnumequal{\value{englishthesis}}{1}{\include{Dissertation/title_en}}{}   % En titlepage
 \include{Dissertation/contents}        % Оглавление
 \ifnumequal{\value{contnumfig}}{1}{}{\counterwithout{figure}{chapter}}
 \ifnumequal{\value{contnumtab}}{1}{}{\counterwithout{table}{chapter}}
